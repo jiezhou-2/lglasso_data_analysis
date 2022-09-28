@@ -1,0 +1,61 @@
+---
+title: "Microbiome Interaction Network for Cystic Fibrosis Patients "
+author: "Jie Zhou"
+date: "9/21/2022"
+output:  
+  workflowr::wflow_html:
+    toc: false
+---
+
+
+
+
+
+
+
+```{r,message=FALSE,warning=FALSE,results='hide'}
+library("lglasso")
+```
+
+## Read into the data
+<details>
+<summary> Click me </summary>
+
+```{r}
+data=read.csv(file = "./data/ddata.csv")[,-1]
+ 
+```
+</details>
+
+
+## Estimate networks for a given sequence of tuning parameters
+<details>
+<summary> Click me </summary>
+```{r,eval=FALSE}
+bic1=c()
+rho=seq(0.01,1,length=5)
+nu=10
+network1=vector("list",length = length(rho))
+for (j in 1:length(rho)){
+result1=lglasso(data = data, rho = rho[j],heter=T)
+network1[[j]]=result1$network
+bb1=-2*result1$ll +0.5*nu*length(which(result1$omega!=0))*log(nrow(data))
+bic1=c(bic1,bb1)
+}
+```
+</details>
+
+
+## Select the network based on EBIC
+
+<details>
+<summary> Click me </summary>
+
+```{r,eval=FALSE}
+index=which.min(bic1)
+estnetwork=network1[[index]]
+```
+</details>
+
+
+

@@ -8,4 +8,20 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+# Supplementary Materials for Reproducibility
+
+This website demonstrate the specific procedures adopted to reproduce the 
+results in the paper <Identifying Microbial Interaction Networks Based on Irregularly Spaced Longitudinal 16S rRNA sequence data>. 
+
+## Simulation
+
+
+[Code for Figure 1.](figure1.html)
+
+
+[Code for Table 1.](table1.html)
+
+
+## Real data
+
+[Code for Figure 2.](netwrok_real_data.html)
