@@ -328,7 +328,7 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -395,16 +395,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong4d8e172"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 4d8e172 </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjiezhou2lglassodataanalysistreedd32d098aea82b9ee532db546678be0b36e08231targetblankdd32d09a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jiezhou-2/lglasso_data_analysis/tree/dd32d098aea82b9ee532db546678be0b36e08231" target="_blank">dd32d09</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong4d8e172" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjiezhou2lglassodataanalysistreedd32d098aea82b9ee532db546678be0b36e08231targetblankdd32d09a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 4d8e172. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jiezhou-2/lglasso_data_analysis/tree/dd32d098aea82b9ee532db546678be0b36e08231" target="_blank">dd32d09</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -413,38 +413,18 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/networkcommon_he.png
 
 Untracked files:
-    Untracked:  analysis/figure1.Rmd
-    Untracked:  analysis/netwrok_real_data.Rmd
-    Untracked:  analysis/table1.Rmd
-    Untracked:  analysis/tau1.rd
-    Untracked:  code/real_bootstrap.R
-    Untracked:  code/real_estimation.R
-    Untracked:  code/real_estimation1.R
-    Untracked:  code/real_network_identification.R
-    Untracked:  code/real_permutation.R
-    Untracked:  code/real_phylogenetic_tree.R
-    Untracked:  code/real_testing.R
-    Untracked:  code/real_tree_network_correlation_bootstrap.R
-    Untracked:  code/simulation_functions.R
-    Untracked:  data/ddata.csv
-    Untracked:  data/subject=15_time=20_coef=0.223_nodes=80.Rd
-    Untracked:  data/subject=15_time=20_coef=0.916_nodes=80.Rd
-    Untracked:  data/subject=15_time=20_coef=2.302_nodes=80.Rd
-    Untracked:  data/subject=15_time=40_coef=0.223_nodes=80.Rd
-    Untracked:  data/subject=15_time=40_coef=0.916_nodes=80.Rd
-    Untracked:  data/subject=15_time=40_coef=2.302_nodes=80.Rd
-    Untracked:  data/subject=30_time=20_coef=0.223_nodes=80.Rd
-    Untracked:  data/subject=30_time=20_coef=0.916_nodes=80.Rd
-    Untracked:  data/subject=30_time=20_coef=2.302_nodes=80.Rd
-    Untracked:  data/subject=30_time=40_coef=0.223_nodes=80.Rd
-    Untracked:  data/subject=30_time=40_coef=0.916_nodes=80.Rd
-    Untracked:  data/subject=30_time=40_coef=2.302_nodes=80.Rd
-    Untracked:  tau1.rd
+    Untracked:  analysis/bic_lglasso.rd
+    Untracked:  code/bicfunction.R
+    Untracked:  data/bic_lglasso.rd
+    Untracked:  data/network1.rd
+    Untracked:  networkcommon_he.png
 
 Unstaged changes:
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/netwrok_real_data.Rmd
+    Deleted:    tau1.rd
 
 </code></pre>
 <p>
@@ -457,49 +437,363 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/netwrok_real_data.Rmd</code>) and HTML (<code>docs/netwrok_real_data.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jiezhou-2/lglasso_data_analysis/blob/dd32d098aea82b9ee532db546678be0b36e08231/analysis/netwrok_real_data.Rmd" target="_blank">dd32d09</a>
+</td>
+<td>
+Jie Zhou
+</td>
+<td>
+2022-09-28
+</td>
+<td>
+create the repo
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jiezhou-2/lglasso_data_analysis/dd32d098aea82b9ee532db546678be0b36e08231/docs/netwrok_real_data.html" target="_blank">dd32d09</a>
+</td>
+<td>
+Jie Zhou
+</td>
+<td>
+2022-09-28
+</td>
+<td>
+create the repo
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
-<pre class="r"><code>library(&quot;lglasso&quot;)</code></pre>
+<pre class="r"><code>library(&quot;lglasso&quot;)
+library(&quot;glasso&quot;)
+library(&quot;ggplot2&quot;)
+library(&quot;igraph&quot;)
+library(&quot;dplyr&quot;)
+library(&quot;GGMselect&quot;)</code></pre>
 <div id="read-into-the-data" class="section level2">
 <h2>Read into the data</h2>
-<details>
-<summary>
-Click me
-</summary>
 <pre class="r"><code>data=read.csv(file = &quot;./data/ddata.csv&quot;)[,-1]</code></pre>
-</details>
 </div>
-<div id="estimate-networks-for-a-given-sequence-of-tuning-parameters" class="section level2">
-<h2>Estimate networks for a given sequence of tuning parameters</h2>
+<div id="source-the-code" class="section level2">
+<h2>source the code</h2>
+<pre class="r"><code>source(file=&quot;./code/bicfunction.R&quot;)</code></pre>
+</div>
+<div id="estimate-networks" class="section level2">
+<h2>Estimate networks</h2>
+<div id="compute-networks-for-a-sequence-of-tuning-parameters" class="section level3">
+<h3>Compute networks for a sequence of tuning parameters</h3>
 <details>
 <summary>
 Click me
 </summary>
 <pre class="r"><code>bic1=c()
-rho=seq(0.01,1,length=5)
-nu=10
+rho=seq(0.01,5,length=50)
+nu=1</code></pre>
+<pre class="r"><code>#### lglasso
 network1=vector(&quot;list&quot;,length = length(rho))
 for (j in 1:length(rho)){
-result1=lglasso(data = data, rho = rho[j],heter=T)
-network1[[j]]=result1$network
-bb1=-2*result1$ll +0.5*nu*length(which(result1$omega!=0))*log(nrow(data))
+  print(j)
+result1=lglasso(data = data, rho = rho[j],heter=F)
+network1[[j]]=result1$omega
+bb1=-2*result1$ll +nu*length(which(result1$omega!=0))*log(nrow(data))
 bic1=c(bic1,bb1)
 }</code></pre>
+<pre class="r"><code>####  glasso
+network2=vector(&quot;list&quot;,length = length(rho))
+bic2=c()
+  s=cov(data[,-c(1,2)])
+    for (j in 1:length(rho)) {
+      network2[[j]]=glasso(s=s,rho=rho[j])$wi
+      bb2=bicfunction(data=data,G=network2[[j]],nu=1)
+      bic2=c(bic2,bb2)
+    }</code></pre>
+<pre class="r"><code>#### NH
+network3=vector(&quot;list&quot;,length = length(rho))
+bic3=c()
+    for (j in 1:length(rho)) {
+      network3[[j]]=addition(data=data,lambda=rho[j])
+      aa=mle_net(data=data,priori=network3[[j]])
+      bb3=bicfunction(data=data,G=aa)
+      bic3=c(bic3,bb3)
+    }</code></pre>
+<pre class="r"><code>#### CO1
+network4=vector(&quot;list&quot;,length = length(rho))
+bic4=c()
+
+    for (j in 1:length(rho)) {
+      network4[[j]]=selectFast(s,family=&quot;C01&quot;,K=2*rho[j])$C01$G
+      bb4=bicfunction(data=data,G=network4[[j]])
+      bic4=c(bic4,bb4)
+    }</code></pre>
+<pre class="r"><code>#### LA
+network5=vector(&quot;list&quot;,length = length(rho))
+bic5=c()
+    for (j in 1:length(rho)) {
+      network5[[j]]=selectFast(s,family=&quot;LA&quot;,K=2*rho[j])$LA$G
+      bb5=bicfunction(data=data,G=network5[[j]])
+      bic5=c(bic5,bb5)
+    }</code></pre>
 </details>
 </div>
-<div id="select-the-network-based-on-ebic" class="section level2">
-<h2>Select the network based on EBIC</h2>
+<div id="select-the-networks-based-on-bic" class="section level3">
+<h3>Select the networks based on BIC</h3>
 <details>
 <summary>
 Click me
 </summary>
-<pre class="r"><code>index=which.min(bic1)
-estnetwork=network1[[index]]</code></pre>
+<pre class="r"><code>index1=which.min(bic1)
+estnetwork1=network1[[index1]]
+index2=which.min(bic2)
+estnetwork2=network2[[index2]]
+index3=which.min(bic1)
+estnetwork3=network3[[index3]]
+index4=which.min(bic1)
+estnetwork4=network4[[index4]]
+index5=which.min(bic1)
+estnetwork5=network5[[index5]]</code></pre>
+</details>
+</div>
+<div id="draw-the-network" class="section level3">
+<h3>Draw the network</h3>
+<details>
+<summary>
+Click me
+</summary>
+<pre class="r"><code>#### lglasso
+family=colnames(data)[-c(1,2)]
+family1=family
+l=length(family)
+for (i in 1:l) {
+  if (i%%2==0) {family1[i]=&quot;&quot;} 
+}
+N=ifelse(estnetwork1==0,0,1)
+g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = &quot;directed&quot;,diag = F)
+V(g2)$degree = degree(g2)
+V(g2)$name=family
+node_list=get.data.frame(g2,what=&quot;vertices&quot;)
+edge_list=get.data.frame(g2,what=&quot;edges&quot;)
+group=rep(1,nrow(edge_list))
+edge_list=cbind(edge_list,group)
+all_nodes &lt;- sort(node_list$name)
+plot_data &lt;- edge_list %&gt;% mutate(
+  to = factor(to, levels = all_nodes),
+  from = factor(from, levels = all_nodes))
+#png(filename = paste(&quot;networkcommon_he&quot;, &quot;.png&quot;, sep = &quot;&quot;))[1,]
+ggplot(plot_data, aes(x = from, y = to, fill = group))  +
+  geom_raster() +
+  theme_bw(base_size = 11, base_family = &quot;serif&quot;, base_line_size = 1) +
+  # Because we need the x and y axis to display every node,
+  # not just the nodes that have connections to each other,
+  # make sure that ggplot does not drop unused factor levels
+  # scale_x_discrete(drop = FALSE) +
+  scale_x_discrete(labels=family1) +
+  scale_y_discrete(labels=family1) +
+  labs(x=&quot;Taxon&quot;,y=&quot;Taxon&quot;)+
+  theme(
+    # Rotate the x-axis lables so they are legible
+    axis.text.x = element_text(angle = 270, hjust = 0),
+    # Force the plot into a square aspect ratio
+    aspect.ratio = 1,
+    # Hide the legend (optional)
+    legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/netwrok_real_data.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()</code></pre>
+<pre class="r"><code>#### glasso
+family=colnames(data)[-c(1,2)]
+family1=family
+l=length(family)
+for (i in 1:l) {
+  if (i%%2==0) {family1[i]=&quot;&quot;} 
+}
+N=ifelse(estnetwork2==0,0,1)
+g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = &quot;directed&quot;,diag = F)
+V(g2)$degree = degree(g2)
+V(g2)$name=family
+node_list=get.data.frame(g2,what=&quot;vertices&quot;)
+edge_list=get.data.frame(g2,what=&quot;edges&quot;)
+group=rep(1,nrow(edge_list))
+edge_list=cbind(edge_list,group)
+all_nodes &lt;- sort(node_list$name)
+plot_data &lt;- edge_list %&gt;% mutate(
+  to = factor(to, levels = all_nodes),
+  from = factor(from, levels = all_nodes))
+#png(filename = paste(&quot;networkcommon_he&quot;, &quot;.png&quot;, sep = &quot;&quot;))[1,]
+ggplot(plot_data, aes(x = from, y = to, fill = group))  +
+  geom_raster() +
+  theme_bw(base_size = 11, base_family = &quot;serif&quot;, base_line_size = 1) +
+  # Because we need the x and y axis to display every node,
+  # not just the nodes that have connections to each other,
+  # make sure that ggplot does not drop unused factor levels
+  # scale_x_discrete(drop = FALSE) +
+  scale_x_discrete(labels=family1) +
+  scale_y_discrete(labels=family1) +
+  labs(x=&quot;Taxon&quot;,y=&quot;Taxon&quot;)+
+  theme(
+    # Rotate the x-axis lables so they are legible
+    axis.text.x = element_text(angle = 270, hjust = 0),
+    # Force the plot into a square aspect ratio
+    aspect.ratio = 1,
+    # Hide the legend (optional)
+    legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/netwrok_real_data.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()</code></pre>
+<pre class="r"><code>#### NH
+family=colnames(data)[-c(1,2)]
+family1=family
+l=length(family)
+for (i in 1:l) {
+  if (i%%2==0) {family1[i]=&quot;&quot;} 
+}
+N=ifelse(estnetwork3==0,0,1)
+g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = &quot;directed&quot;,diag = F)
+V(g2)$degree = degree(g2)
+V(g2)$name=family
+node_list=get.data.frame(g2,what=&quot;vertices&quot;)
+edge_list=get.data.frame(g2,what=&quot;edges&quot;)
+group=rep(1,nrow(edge_list))
+edge_list=cbind(edge_list,group)
+all_nodes &lt;- sort(node_list$name)
+plot_data &lt;- edge_list %&gt;% mutate(
+  to = factor(to, levels = all_nodes),
+  from = factor(from, levels = all_nodes))
+#png(filename = paste(&quot;networkcommon_he&quot;, &quot;.png&quot;, sep = &quot;&quot;))[1,]
+ggplot(plot_data, aes(x = from, y = to, fill = group))  +
+  geom_raster() +
+  theme_bw(base_size = 11, base_family = &quot;serif&quot;, base_line_size = 1) +
+  # Because we need the x and y axis to display every node,
+  # not just the nodes that have connections to each other,
+  # make sure that ggplot does not drop unused factor levels
+  # scale_x_discrete(drop = FALSE) +
+  scale_x_discrete(labels=family1) +
+  scale_y_discrete(labels=family1) +
+  labs(x=&quot;Taxon&quot;,y=&quot;Taxon&quot;)+
+  theme(
+    # Rotate the x-axis lables so they are legible
+    axis.text.x = element_text(angle = 270, hjust = 0),
+    # Force the plot into a square aspect ratio
+    aspect.ratio = 1,
+    # Hide the legend (optional)
+    legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/netwrok_real_data.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()</code></pre>
+<pre class="r"><code>#### CO1
+family=colnames(data)[-c(1,2)]
+family1=family
+l=length(family)
+for (i in 1:l) {
+  if (i%%2==0) {family1[i]=&quot;&quot;} 
+}
+N=ifelse(estnetwork4==0,0,1)
+g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = &quot;directed&quot;,diag = F)
+V(g2)$degree = degree(g2)
+V(g2)$name=family
+node_list=get.data.frame(g2,what=&quot;vertices&quot;)
+edge_list=get.data.frame(g2,what=&quot;edges&quot;)
+group=rep(1,nrow(edge_list))
+edge_list=cbind(edge_list,group)
+all_nodes &lt;- sort(node_list$name)
+plot_data &lt;- edge_list %&gt;% mutate(
+  to = factor(to, levels = all_nodes),
+  from = factor(from, levels = all_nodes))
+#png(filename = paste(&quot;networkcommon_he&quot;, &quot;.png&quot;, sep = &quot;&quot;))[1,]
+ggplot(plot_data, aes(x = from, y = to, fill = group))  +
+  geom_raster() +
+  theme_bw(base_size = 11, base_family = &quot;serif&quot;, base_line_size = 1) +
+  # Because we need the x and y axis to display every node,
+  # not just the nodes that have connections to each other,
+  # make sure that ggplot does not drop unused factor levels
+  # scale_x_discrete(drop = FALSE) +
+  scale_x_discrete(labels=family1) +
+  scale_y_discrete(labels=family1) +
+  labs(x=&quot;Taxon&quot;,y=&quot;Taxon&quot;)+
+  theme(
+    # Rotate the x-axis lables so they are legible
+    axis.text.x = element_text(angle = 270, hjust = 0),
+    # Force the plot into a square aspect ratio
+    aspect.ratio = 1,
+    # Hide the legend (optional)
+    legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/netwrok_real_data.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()</code></pre>
+<pre class="r"><code>#### LA
+family=colnames(data)[-c(1,2)]
+family1=family
+l=length(family)
+for (i in 1:l) {
+  if (i%%2==0) {family1[i]=&quot;&quot;} 
+}
+N=ifelse(estnetwork5==0,0,1)
+g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = &quot;directed&quot;,diag = F)
+V(g2)$degree = degree(g2)
+V(g2)$name=family
+node_list=get.data.frame(g2,what=&quot;vertices&quot;)
+edge_list=get.data.frame(g2,what=&quot;edges&quot;)
+group=rep(1,nrow(edge_list))
+edge_list=cbind(edge_list,group)
+all_nodes &lt;- sort(node_list$name)
+plot_data &lt;- edge_list %&gt;% mutate(
+  to = factor(to, levels = all_nodes),
+  from = factor(from, levels = all_nodes))
+#png(filename = paste(&quot;networkcommon_he&quot;, &quot;.png&quot;, sep = &quot;&quot;))[1,]
+ggplot(plot_data, aes(x = from, y = to, fill = group))  +
+  geom_raster() +
+  theme_bw(base_size = 11, base_family = &quot;serif&quot;, base_line_size = 1) +
+  # Because we need the x and y axis to display every node,
+  # not just the nodes that have connections to each other,
+  # make sure that ggplot does not drop unused factor levels
+  # scale_x_discrete(drop = FALSE) +
+  scale_x_discrete(labels=family1) +
+  scale_y_discrete(labels=family1) +
+  labs(x=&quot;Taxon&quot;,y=&quot;Taxon&quot;)+
+  theme(
+    # Rotate the x-axis lables so they are legible
+    axis.text.x = element_text(angle = 270, hjust = 0),
+    # Force the plot into a square aspect ratio
+    aspect.ratio = 1,
+    # Hide the legend (optional)
+    legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/netwrok_real_data.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#dev.off()</code></pre>
 </details>
 <br>
 <p>
@@ -526,19 +820,27 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] lglasso_0.1.0
+[1] GGMselect_0.1-12.5 mvtnorm_1.1-3      dplyr_1.0.9        igraph_1.3.2      
+[5] ggplot2_3.3.6      glasso_1.11        lglasso_0.1.0     
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.9       rstudioapi_0.13  knitr_1.39       magrittr_2.0.3  
- [5] workflowr_1.7.0  R6_2.5.1         rlang_1.0.4      fastmap_1.1.0   
- [9] fansi_1.0.3      stringr_1.4.0    tools_4.1.2      xfun_0.31       
-[13] utf8_1.2.2       cli_3.3.0        git2r_0.30.1     jquerylib_0.1.4 
-[17] htmltools_0.5.2  ellipsis_0.3.2   rprojroot_2.0.3  yaml_2.3.5      
-[21] digest_0.6.29    tibble_3.1.7     lifecycle_1.0.1  later_1.3.0     
-[25] sass_0.4.2       vctrs_0.4.1      promises_1.2.0.1 fs_1.5.2        
-[29] cachem_1.0.6     glue_1.6.2       evaluate_0.15    rmarkdown_2.14  
-[33] stringi_1.7.6    bslib_0.4.0      compiler_4.1.2   pillar_1.8.0    
-[37] jsonlite_1.8.0   httpuv_1.6.5     glasso_1.11      pkgconfig_2.0.3 </code></pre>
+ [1] Rcpp_1.0.9       lattice_0.20-45  gtools_3.9.3     assertthat_0.2.1
+ [5] glmnet_4.1-4     rprojroot_2.0.3  digest_0.6.29    foreach_1.5.2   
+ [9] utf8_1.2.2       R6_2.5.1         lars_1.3         evaluate_0.15   
+[13] highr_0.9        pillar_1.8.0     rlang_1.0.4      rstudioapi_0.13 
+[17] whisker_0.4      jquerylib_0.1.4  Matrix_1.3-4     rmarkdown_2.14  
+[21] splines_4.1.2    stringr_1.4.0    munsell_0.5.0    compiler_4.1.2  
+[25] httpuv_1.6.5     xfun_0.31        pkgconfig_2.0.3  shape_1.4.6     
+[29] htmltools_0.5.2  tidyselect_1.1.2 tibble_3.1.7     workflowr_1.7.0 
+[33] codetools_0.2-18 fansi_1.0.3      withr_2.5.0      later_1.3.0     
+[37] grid_4.1.2       jsonlite_1.8.0   gtable_0.3.0     lifecycle_1.0.1 
+[41] DBI_1.1.3        git2r_0.30.1     magrittr_2.0.3   scales_1.2.0    
+[45] cli_3.3.0        stringi_1.7.6    cachem_1.0.6     farver_2.1.1    
+[49] fs_1.5.2         promises_1.2.0.1 bslib_0.4.0      ellipsis_0.3.2  
+[53] generics_0.1.3   vctrs_0.4.1      iterators_1.0.14 tools_4.1.2     
+[57] glue_1.6.2       purrr_0.3.4      fastmap_1.1.0    survival_3.2-13 
+[61] yaml_2.3.5       colorspace_2.0-3 knitr_1.39       sass_0.4.2      </code></pre>
+</div>
 </div>
 </div>
 
