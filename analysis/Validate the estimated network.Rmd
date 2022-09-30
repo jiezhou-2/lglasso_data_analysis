@@ -1,0 +1,181 @@
+---
+title: "Validate the Estimated Network"
+author: "Jie Zhou"
+date: "9/29/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r,message=FALSE,warning=FALSE}
+library(igraph)
+```
+
+
+## Compute the correlation between phylogenetic tree and network
+
+### construct the phylogenetic tree
+
+```{r}
+##smalltree contains the evolution information
+data=read.csv(file = "./data/ddata.csv")[,-1]
+family=colnames(data)[-c(1,2)]
+family[2]="Escherichia.Shigella"
+taxa=read.csv(file="./data/taxa.csv",header = T)[,-1]
+taxa[which(taxa=="Escherichia/Shigella",arr.ind = T)]="Escherichia.Shigella"
+target=family#here data is generated from the file realdata.R
+smalltree=data.frame()
+for (i in 1:length(target)) {
+  index=which(taxa[,6]==target[i])
+  a=taxa[index,]
+  smalltree=rbind(smalltree,a)
+}
+smalltree=unique(smalltree)
+gedge=function(pure){
+  n=length(pure)
+  edgematrix=as.data.frame(matrix(nrow = n-1, ncol = 2))
+  for (i in 1:(n-1)){
+    edgematrix[i,]=c(pure[i],pure[i+1])
+  }
+  return(edgematrix)
+}
+edgeset=data.frame()
+for (k in 1:nrow(smalltree)){
+  index=which(is.na(smalltree[k,]))
+  if(length(index)==0){
+    pure=smalltree[k,]
+  }else{
+    pure=smalltree[k,-index]
+  }
+  edgeset=rbind(edgeset,gedge(pure))
+}
+treegraph=graph_from_edgelist(as.matrix(edgeset),directed = F)
+```
+### compute the correlations
+
+#### compute the distance matrix in phylogenetic tree
+
+```{r}
+distance2=distances(treegraph)
+index=c()
+for (i in 1:length(family)) {
+  index=c(index,which(rownames(distance2)==family[i]))
+}
+
+subdistance2=distance2[index,index]
+```
+
+#### compute the distance matrix in the estimated network
+
+```{r}
+load("./data/estnetwork1.rd")
+load("./data/estnetwork2.rd")
+load("./data/estnetwork3.rd")
+load("./data/estnetwork4.rd")
+load("./data/estnetwork5.rd")
+```
+
+
+
+```{r}
+### lglasso
+  N=ifelse(estnetwork1==0,0,1)
+  diag(N)=0
+  g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)  
+  distance1=distances(g2)
+  index=which(distance1==Inf,arr.ind = T)
+  distance1[index]=100
+  d1=distance1[lower.tri(distance1)]
+  d2=subdistance2[lower.tri(subdistance2)]
+  d1_NM=d1[which(d1!=100)]
+  d2_NM=d2[which(d1!=100)]
+  rlglasso=cor(d1_NM,d2_NM)
+  dlglasso=cbind(d1_NM,d2_NM)
+```
+
+
+```{r}
+### glasso
+  N=ifelse(estnetwork2==0,0,1)
+  diag(N)=0
+  g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)  
+  distance1=distances(g2)
+  index=which(distance1==Inf,arr.ind = T)
+  distance1[index]=100
+  d1=distance1[lower.tri(distance1)]
+  d2=subdistance2[lower.tri(subdistance2)]
+  d1_NM=d1[which(d1!=100)]
+  d2_NM=d2[which(d1!=100)]
+  rglasso=cor(d1_NM,d2_NM)
+  dglasso=cbind(d1_NM,d2_NM)
+```
+
+
+```{r}
+### nh
+  N=ifelse(estnetwork3==0,0,1)
+  diag(N)=0
+  g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)  
+  distance1=distances(g2)
+  index=which(distance1==Inf,arr.ind = T)
+  distance1[index]=100
+  d1=distance1[lower.tri(distance1)]
+  d2=subdistance2[lower.tri(subdistance2)]
+  d1_NM=d1[which(d1!=100)]
+  d2_NM=d2[which(d1!=100)]
+  rnh=cor(d1_NM,d2_NM)
+  dnh=cbind(d1_NM,d2_NM)
+```
+
+
+```{r}
+### co1
+  N=ifelse(estnetwork4==0,0,1)
+  diag(N)=0
+  g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)  
+  distance1=distances(g2)
+  index=which(distance1==Inf,arr.ind = T)
+  distance1[index]=100
+  d1=distance1[lower.tri(distance1)]
+  d2=subdistance2[lower.tri(subdistance2)]
+  d1_NM=d1[which(d1!=100)]
+  d2_NM=d2[which(d1!=100)]
+  rco1=cor(d1_NM,d2_NM)
+  dco1=cbind(d1_NM,d2_NM)
+```
+
+
+```{r}
+### la
+  N=ifelse(estnetwork5==0,0,1)
+  diag(N)=0
+  g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)  
+  distance1=distances(g2)
+  index=which(distance1==Inf,arr.ind = T)
+  distance1[index]=100
+  d1=distance1[lower.tri(distance1)]
+  d2=subdistance2[lower.tri(subdistance2)]
+  d1_NM=d1[which(d1!=100)]
+  d2_NM=d2[which(d1!=100)]
+  rla=cor(d1_NM,d2_NM)
+  dla=cbind(d1_NM,d2_NM)
+```
+
+```{r}
+print(c(rlglasso,rglasso,rnh,rco1,rla))
+```
+
+
+
+
+
+
+
+
+
+### 
+
+
+

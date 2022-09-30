@@ -15,13 +15,21 @@ results in the paper <Identifying Microbial Interaction Networks Based on Irregu
 
 ## Simulation
 
+### Data from SGGM 
 
 [Code for Figure 1.](figure1.html)
 
 
 [Code for Table 1.](table1.html)
 
+### Data from general GGM
+
 
 ## Real data
 
-[Code for Figure 2.](netwrok_real_data.html)
+### Estimate the network 
+
+[Code for Figure 2.](network_real_data.html)
+
+### Validated the estimated network
+
