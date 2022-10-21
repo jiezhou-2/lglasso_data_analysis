@@ -28,7 +28,7 @@ pre {
 
 ### Introduction
 
-* This website demonstrate the specific procedures adopted to reproduce the 
+* This website demonstrate the specific procedures to reproduce the 
 results in the paper *Identifying Microbial Interaction Networks Based on Irregularly Spaced Longitudinal 16S rRNA sequence data*. If you are only interested in how to use the R package `lglasso` associated with this paper rather than the results in the paper, you could just check the vignette by click the link, [R package lglasso](https://jiezhou-2.github.io/lglasso/articles/Introduction_of_lglasso_package.html).   
 
 * In the paper, we compared the proposed network identification algorithm  `lglasso` with other conventional algorithms, i.e., `glasso`, `neighborhood method`, `GGMselect-CO1` and `GGMselect-LA`. It is shown that the proposed `lglasso` outperform the other methods when the data are  longitudinal. In order to carry out the simulation studies, in addition to the functions defined in  package `lglasso`, we also defined some other functions to facilitate the simulation. These functions are then  sourced into the simulation scripts. 
@@ -42,7 +42,7 @@ results in the paper *Identifying Microbial Interaction Networks Based on Irregu
   +  ``remotes::install_github("jiezhou-2/lglasso",ref = "conditional")``
 
 
-* Note since in each figure, there are four scenarios being investigated which only differ in terms of their parameter settings, so only the code for one of the four scenarios are displayed. You can change the parameter setting to get the results for other settings. The same rule is used for the results in the  tables. 
+* Note since in each figure, there are four scenarios being investigated which only differ in terms of their parameter settings, so only the code for one of the four scenarios are displayed. You can change the parameter setting to get the results for other settings. The same rule is used for the results in the  tables. Also since the running code can take hours,if possible, I would suggest you to submit  the code to a server instead of on your local computer.   
 
   + [Procedure for generating Figure 1.](figure1.html)
 
