@@ -1,5 +1,5 @@
 ---
-title: "Procedure for generating Figure 1"
+title: "Procedure for generating Figures"
 author: "Jie Zhou"
 date: "9/21/2022"
 output:  
@@ -11,116 +11,42 @@ output:
 
 
 
-## source the simulation-related functions
+### Source the simulation-related functions
 
 
 ```{r,message=FALSE,warning=FALSE,results='hide'}
-library(lglasso)
+library("lglasso")                                                        
+library("BDgraph")
+library("GGMselect")
+library("Matrix")
 source("./code/simulation_functions.r")
 ```
 
-## Figure 1. 
 
-### code: m=15, n=20 
 
-<details>
-<summary> Click me </summary>
+### Code for the case of m=15, n=20 
 
 ```{r,eval=FALSE}
-  m=15
-  n=20
-  e=2.302
-  p=80
-  Nsim=50
-  rho=vector("list",5)
-  rho[[1]]=seq(0.001,0.3,length=20)
-  rho[[2]]=seq(0.001,0.3,length=20)
-  rho[[3]]=seq(0.001,0.3,length=20)
-  rho[[4]]=seq(0.00001,0.1,length=10)
-  rho[[5]]=seq(0.00001,0.1,length=10)
-  set.seed(m+n+e+p)
-  simures=power_compare2(m=m,n=n,p=p,coe=c(e,0,0),l=Nsim,rho=rho,prob=0.01,heter=F,nu=0.3)
+m=15
+n=20
+e=2.302
+Nsim=50
+rho=vector("list",5)
+rho[[1]]=seq(0.001,0.3,length=20)
+rho[[2]]=seq(0.001,0.3,length=20)
+rho[[3]]=seq(0.001,0.3,length=20)
+rho[[4]]=seq(0.00001,0.1,length=10)
+rho[[5]]=seq(0.00001,0.1,length=10)
+set.seed(m+n+e)
+simures=power_compare1(m=m,n=n,p=80,coe=c(e,0,0),l=Nsim,rho=rho,prob=0.01,heter=F,community2=F)
 ```
 
-<\details>
 
 
-### code: m=30, n=20 
 
-<details>
-<summary> Click me </summary>
-
-```{r,eval=FALSE}
-  m=30
-  n=20
-  e=2.302
-  p=80
-  Nsim=50
-  rho=vector("list",5)
-  rho[[1]]=seq(0.001,0.3,length=20)
-  rho[[2]]=seq(0.001,0.3,length=20)
-  rho[[3]]=seq(0.001,0.3,length=20)
-  rho[[4]]=seq(0.00001,0.1,length=10)
-  rho[[5]]=seq(0.00001,0.1,length=10)
-  set.seed(m+n+e+p)
-  simures=power_compare2(m=m,n=n,p=p,coe=c(e,0,0),l=Nsim,rho=rho,prob=0.01,heter=F,nu=0.3)
-```
-
-<\details>
-
-### code: m=15, n=40
-
-<details>
-<summary> Click me </summary>
-
-```{r,eval=FALSE}
-  m=15
-  n=40
-  e=2.302
-  p=80
-  Nsim=50
-  rho=vector("list",5)
-  rho[[1]]=seq(0.001,0.3,length=20)
-  rho[[2]]=seq(0.001,0.3,length=20)
-  rho[[3]]=seq(0.001,0.3,length=20)
-  rho[[4]]=seq(0.00001,0.1,length=10)
-  rho[[5]]=seq(0.00001,0.1,length=10)
-  set.seed(m+n+e+p)
-  simures=power_compare2(m=m,n=n,p=p,coe=c(e,0,0),l=Nsim,rho=rho,prob=0.01,heter=F,nu=0.3)
-```
-
-<\details>
-
-
-### code: m=30, n=40 
-
-<details>
-<summary> Click me </summary>
-
-```{r,eval=FALSE}
-  m=30
-  n=40
-  e=2.302
-  p=80
-  Nsim=50
-  rho=vector("list",5)
-  rho[[1]]=seq(0.001,0.3,length=20)
-  rho[[2]]=seq(0.001,0.3,length=20)
-  rho[[3]]=seq(0.001,0.3,length=20)
-  rho[[4]]=seq(0.00001,0.1,length=10)
-  rho[[5]]=seq(0.00001,0.1,length=10)
-  set.seed(m+n+e+p)
-  simures=power_compare2(m=m,n=n,p=p,coe=c(e,0,0),l=Nsim,rho=rho,prob=0.01,heter=F,nu=0.3)
-```
-
-<\details>
-
-### Draw the plots
-<details>
-<summary> Click me </summary>
+### Plot for SGGM data
 
 ```{r,message=FALSE,warning=FALSE,results='hide'}
-
 load("./data/subject=15_time=20_coef=2.302_nodes=80.Rd")
 results1520=simures
 load("./data/subject=15_time=40_coef=2.302_nodes=80.Rd")
@@ -146,10 +72,6 @@ lines(results1540[[1]][[2]][,2],results1520[[1]][[2]][,1],type="l",lty=2)
 lines(results1540[[1]][[3]][,2],results1520[[1]][[3]][,1],type="l",lty=3)
 legend(0.38,0.7,legend=c("m=15, n=40"))
 
-
-
-
-
 FPR=results3020[[1]][[1]][,2]
 TPR=results3020[[1]][[1]][,1]
 plot(FPR,TPR,ylim = c(0.2,1),xlim=c(0,1),xlab = "FPR",ylab = "TPR",type="l")
@@ -164,7 +86,12 @@ lines(results3040[[1]][[2]][,2],results3040[[1]][[2]][,1],type="l",lty=2)
 lines(results3040[[1]][[3]][,2],results3040[[1]][[3]][,1],type="l",lty=3)
 legend(0.38,0.7,legend=c("m=30, n=40"))
 
-
 title("Comparison of LGLASSO, GLASSO  and NH", outer=TRUE, cex=1.5)
 ```
-<\details>
+
+
+
+
+
+
+

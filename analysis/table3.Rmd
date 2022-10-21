@@ -1,0 +1,42 @@
+---
+title: "Procedure for generating Table 1"
+author: "Jie Zhou"
+date: "9/21/2022"
+output:  
+  workflowr::wflow_html:
+    toc: false
+---
+
+
+
+
+
+### Source the simulation-related functions
+
+
+```{r,message=FALSE,warning=FALSE,results='hide'}
+library("lglasso")
+library("BDgraph")
+library("GGMselect")
+library("Matrix")
+source("./code/simulation_functions.r")
+```
+
+
+### Code for the case of censoring parameter `zirate=(0.1, 0.6)`
+
+```{r,eval=FALSE}
+uu1=0.1
+uu2=0.6
+n=10
+Nsim=50
+rho=vector("list",5)
+rho[[1]]=seq(0.01,0.2,length=20)
+rho[[2]]=seq(0.01,0.2,length=20)
+rho[[3]]=seq(0.01,0.2,length=20)
+rho[[4]]=seq(0.001,0.1,length=10)
+rho[[5]]=seq(0.001,0.1,length=10)
+set.seed(n+uu2*10+uu1*10)
+simures=power_compare1(m=20,n=n,p=80,coe=c(2.3,0,0),l=Nsim,rho=rho,prob=0.01,heter=T,community2=F,zirate=c(uu1, uu2))
+```
+

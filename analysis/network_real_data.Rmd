@@ -36,101 +36,26 @@ source(file="./code/bicfunction.R")
 
 ```{r}
 bic1=c()
-rho=seq(5,15,length=50)
+rho=seq(15,23,length=50)
 ```
 
 
 ```{r,message=FALSE,warning=FALSE}
-#### lglasso
 r=0.036
 bic1=c()
 T=log(ncol(data)-2)/(2*log(1/r-1))
 network1=vector("list",length = length(rho))
 for (j in 1:length(rho)){
-  print(j)
 result1=lglasso(data = data, rho = rho[j],heter=F)
 network1[[j]]=result1$omega
 bb1=-2*result1$ll +0.5*length(which(result1$omega!=0))*log(nrow(data))+0.5* length(which(result1$omega!=0))*log(ncol(data)-2)/T
 bic1=c(bic1,bb1)
 }
 ```
-
-
-
-
-
-```{r}
-####  glasso
-network2=vector("list",length = length(rho))
-bic2=c()
-  s=cov(data[,-c(1,2)])
-    for (j in 1:length(rho)) {
-      network2[[j]]=glasso(s=s,rho=rho[j])$wi
-      bb2=bicfunction(data=data,G=network2[[j]],T=T)
-      bic2=c(bic2,bb2)
-    }
-```
-
-
-
-
-
-
-
-
-```{r}
-#### NH
-network3=vector("list",length = length(rho))
-bic3=c()
-    for (j in 1:length(rho)) {
-      network3[[j]]=addition(data=data,lambda=rho[j])
-      aa=mle_net(data=data,priori=network3[[j]])
-      bb3=bicfunction(data=data,G=aa,T=T)
-      bic3=c(bic3,bb3)
-    }
-```
-
-
-
-
-
-
-
-```{r,message=FALSE,warning=FALSE}
-#### CO1
-network4=vector("list",length = length(rho))
-bic4=c()
-
-    for (j in 1:length(rho)) {
-      network4[[j]]=selectFast(s,family="C01",K=2*rho[j])$C01$G
-      bb4=bicfunction(data=data,G=network4[[j]],T=T)
-      bic4=c(bic4,bb4)
-    }
-```
-
-
-
-
-
-```{r,message=FALSE,warning=FALSE}
-#### LA
-network5=vector("list",length = length(rho))
-bic5=c()
-    for (j in 1:length(rho)) {
-      network5[[j]]=selectFast(s,family="LA",K=2*rho[j])$LA$G
-      bb5=bicfunction(data=data,G=network5[[j]],T=T)
-      bic5=c(bic5,bb5)
-    }
-
-```
-
 </details>
 
 
-```{r,echo=FALSE,message=FALSE,warning=FALSE}
-#load("./data/bic_lglasso.rd")
-#load("./data/network1.rd")
-```
+
 
 
 ### Select the networks based on BIC
@@ -143,19 +68,6 @@ index1=which.min(bic1)
 estnetwork1=network1[[index1]]
 plot(bic1)
 save(estnetwork1,file="./data/estnetwork1.rd")
-index2=which.min(bic2)
-estnetwork2=network2[[index2]]
-plot(bic2)
-save(estnetwork2,file="./data/estnetwork2.rd")
-index3=which.min(bic1)
-estnetwork3=network3[[index3]]
-save(estnetwork3,file="./data/estnetwork3.rd")
-index4=which.min(bic1)
-estnetwork4=network4[[index4]]
-save(estnetwork4,file="./data/estnetwork4.rd")
-index5=which.min(bic1)
-estnetwork5=network5[[index5]]
-save(estnetwork5,file="./data/estnetwork5.rd")
 ```
 </details>
 
@@ -165,8 +77,7 @@ save(estnetwork5,file="./data/estnetwork5.rd")
 <details>
 <summary> Click me </summary>
 
-```{r,collapse=TRUE}
-#### lglasso
+```{r,message=FALSE,warning=FALSE}
 family=colnames(data)[-c(1,2)]
 family1=family
 l=length(family)
@@ -189,10 +100,6 @@ plot_data <- edge_list %>% mutate(
 ggplot(plot_data, aes(x = from, y = to, fill = group))  +
   geom_raster() +
   theme_bw(base_size = 11, base_family = "serif", base_line_size = 1) +
-  # Because we need the x and y axis to display every node,
-  # not just the nodes that have connections to each other,
-  # make sure that ggplot does not drop unused factor levels
-  # scale_x_discrete(drop = FALSE) +
   scale_x_discrete(labels=family1) +
   scale_y_discrete(labels=family1) +
   labs(x="Taxon",y="Taxon")+
@@ -203,188 +110,29 @@ ggplot(plot_data, aes(x = from, y = to, fill = group))  +
     aspect.ratio = 1,
     # Hide the legend (optional)
     legend.position = "none")
-#dev.off()
-```
-
-
-
-
-
-
-```{r,collapse=TRUE}
-#### glasso
-family=colnames(data)[-c(1,2)]
-family1=family
-l=length(family)
-for (i in 1:l) {
-  if (i%%2==0) {family1[i]=""} 
-}
-N=ifelse(estnetwork2==0,0,1)
-g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "directed",diag = F)
-V(g2)$degree = degree(g2)
-V(g2)$name=family
-node_list=get.data.frame(g2,what="vertices")
-edge_list=get.data.frame(g2,what="edges")
-group=rep(1,nrow(edge_list))
-edge_list=cbind(edge_list,group)
-all_nodes <- sort(node_list$name)
-plot_data <- edge_list %>% mutate(
-  to = factor(to, levels = all_nodes),
-  from = factor(from, levels = all_nodes))
-#png(filename = paste("networkcommon_he", ".png", sep = ""))[1,]
-ggplot(plot_data, aes(x = from, y = to, fill = group))  +
-  geom_raster() +
-  theme_bw(base_size = 11, base_family = "serif", base_line_size = 1) +
-  # Because we need the x and y axis to display every node,
-  # not just the nodes that have connections to each other,
-  # make sure that ggplot does not drop unused factor levels
-  # scale_x_discrete(drop = FALSE) +
-  scale_x_discrete(labels=family1) +
-  scale_y_discrete(labels=family1) +
-  labs(x="Taxon",y="Taxon")+
-  theme(
-    # Rotate the x-axis lables so they are legible
-    axis.text.x = element_text(angle = 270, hjust = 0),
-    # Force the plot into a square aspect ratio
-    aspect.ratio = 1,
-    # Hide the legend (optional)
-    legend.position = "none")
-#dev.off()
-```
-
-
-
-
-```{r,collapse=TRUE}
-#### NH
-# family=colnames(data)[-c(1,2)]
-# family1=family
-# l=length(family)
-# for (i in 1:l) {
-#   if (i%%2==0) {family1[i]=""} 
-# }
-# N=ifelse(estnetwork3==0,0,1)
-# g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "directed",diag = F)
-# V(g2)$degree = degree(g2)
-# V(g2)$name=family
-# node_list=get.data.frame(g2,what="vertices")
-# edge_list=get.data.frame(g2,what="edges")
-# group=rep(1,nrow(edge_list))
-# edge_list=cbind(edge_list,group)
-# all_nodes <- sort(node_list$name)
-# plot_data <- edge_list %>% mutate(
-#   to = factor(to, levels = all_nodes),
-#   from = factor(from, levels = all_nodes))
-# #png(filename = paste("networkcommon_he", ".png", sep = ""))[1,]
-# ggplot(plot_data, aes(x = from, y = to, fill = group))  +
-#   geom_raster() +
-#   theme_bw(base_size = 11, base_family = "serif", base_line_size = 1) +
-#   # Because we need the x and y axis to display every node,
-#   # not just the nodes that have connections to each other,
-#   # make sure that ggplot does not drop unused factor levels
-#   # scale_x_discrete(drop = FALSE) +
-#   scale_x_discrete(labels=family1) +
-#   scale_y_discrete(labels=family1) +
-#   labs(x="Taxon",y="Taxon")+
-#   theme(
-#     # Rotate the x-axis lables so they are legible
-#     axis.text.x = element_text(angle = 270, hjust = 0),
-#     # Force the plot into a square aspect ratio
-#     aspect.ratio = 1,
-#     # Hide the legend (optional)
-#     legend.position = "none")
-#dev.off()
-```
-
-
-
-
-
-
-
-```{r,collapse=TRUE}
-#### CO1
-# family=colnames(data)[-c(1,2)]
-# family1=family
-# l=length(family)
-# for (i in 1:l) {
-#   if (i%%2==0) {family1[i]=""} 
-# }
-# N=ifelse(estnetwork4==0,0,1)
-# g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "directed",diag = F)
-# V(g2)$degree = degree(g2)
-# V(g2)$name=family
-# node_list=get.data.frame(g2,what="vertices")
-# edge_list=get.data.frame(g2,what="edges")
-# group=rep(1,nrow(edge_list))
-# edge_list=cbind(edge_list,group)
-# all_nodes <- sort(node_list$name)
-# plot_data <- edge_list %>% mutate(
-#   to = factor(to, levels = all_nodes),
-#   from = factor(from, levels = all_nodes))
-# #png(filename = paste("networkcommon_he", ".png", sep = ""))[1,]
-# ggplot(plot_data, aes(x = from, y = to, fill = group))  +
-#   geom_raster() +
-#   theme_bw(base_size = 11, base_family = "serif", base_line_size = 1) +
-#   # Because we need the x and y axis to display every node,
-#   # not just the nodes that have connections to each other,
-#   # make sure that ggplot does not drop unused factor levels
-#   # scale_x_discrete(drop = FALSE) +
-#   scale_x_discrete(labels=family1) +
-#   scale_y_discrete(labels=family1) +
-#   labs(x="Taxon",y="Taxon")+
-#   theme(
-#     # Rotate the x-axis lables so they are legible
-#     axis.text.x = element_text(angle = 270, hjust = 0),
-#     # Force the plot into a square aspect ratio
-#     aspect.ratio = 1,
-#     # Hide the legend (optional)
-#     legend.position = "none")
-#dev.off()
-```
-
-
-
-
-
-```{r,collapse=TRUE}
-#### LA
-# family=colnames(data)[-c(1,2)]
-# family1=family
-# l=length(family)
-# for (i in 1:l) {
-#   if (i%%2==0) {family1[i]=""} 
-# }
-# N=ifelse(estnetwork5==0,0,1)
-# g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "directed",diag = F)
-# V(g2)$degree = degree(g2)
-# V(g2)$name=family
-# node_list=get.data.frame(g2,what="vertices")
-# edge_list=get.data.frame(g2,what="edges")
-# group=rep(1,nrow(edge_list))
-# edge_list=cbind(edge_list,group)
-# all_nodes <- sort(node_list$name)
-# plot_data <- edge_list %>% mutate(
-#   to = factor(to, levels = all_nodes),
-#   from = factor(from, levels = all_nodes))
-# #png(filename = paste("networkcommon_he", ".png", sep = ""))[1,]
-# ggplot(plot_data, aes(x = from, y = to, fill = group))  +
-#   geom_raster() +
-#   theme_bw(base_size = 11, base_family = "serif", base_line_size = 1) +
-#   # Because we need the x and y axis to display every node,
-#   # not just the nodes that have connections to each other,
-#   # make sure that ggplot does not drop unused factor levels
-#   # scale_x_discrete(drop = FALSE) +
-#   scale_x_discrete(labels=family1) +
-#   scale_y_discrete(labels=family1) +
-#   labs(x="Taxon",y="Taxon")+
-#   theme(
-#     # Rotate the x-axis lables so they are legible
-#     axis.text.x = element_text(angle = 270, hjust = 0),
-#     # Force the plot into a square aspect ratio
-#     aspect.ratio = 1,
-#     # Hide the legend (optional)
-#     legend.position = "none")
 #dev.off()
 ```
 </details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

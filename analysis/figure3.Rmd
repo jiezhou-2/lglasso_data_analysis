@@ -1,0 +1,101 @@
+---
+title: "Procedure for generating Figures"
+author: "Jie Zhou"
+date: "9/21/2022"
+output:  
+  workflowr::wflow_html:
+    toc: false
+---
+
+
+
+
+
+### Source the simulation-related functions
+
+
+```{r,message=FALSE,warning=FALSE,results='hide'}
+library("lglasso")                                                        
+library("BDgraph")
+library("GGMselect")
+library("Matrix")
+source("./code/simulation_functions.r")
+```
+
+
+
+### Code for the case of censoring parameter `zirate=(0.3,0.6)`
+
+```{r,eval=FALSE}
+uu1=0.3
+uu2=0.6
+Nsim=50
+rho=vector("list",5)
+rho[[1]]=seq(0.01,0.2,length=20)
+rho[[2]]=seq(0.01,0.2,length=20)
+rho[[3]]=seq(0.01,0.2,length=20)
+rho[[4]]=seq(0.001,0.1,length=10)
+rho[[5]]=seq(0.001,0.1,length=10)
+set.seed(uu2*30+uu1*10+1)
+simures=power_compare1(m=20,n=20,p=80,coe=c(2.3,0,0),l=Nsim,rho=rho,prob=0.01,heter=F,community2=F,zirate=c(uu1, uu2))
+```
+
+
+
+
+
+
+
+
+
+### Plot for homo model with censored data 
+
+
+```{r,message=FALSE,warning=FALSE,results='hide'}
+load("./data/homocensored/uu1=0.1_uu2=0.6.Rd")
+results01=simures
+load("./data/homocensored/uu1=0.1_uu2=0.8.Rd")
+results02=simures
+load("./data/homocensored/uu1=0.3_uu2=0.6.Rd")
+results03=simures
+load("./data/homocensored/uu1=0.3_uu2=0.8.Rd")
+results04=simures
+
+par(mfrow=c(2,2),mar=c(4,4,2,2),oma=c(0,0,2,0))
+FPR=results01[[1]][[1]][,2]
+TPR=results01[[1]][[1]][,1]
+plot(FPR,TPR,ylim = c(0.2,1),xlim=c(0,1),xlab = "FPR",ylab = "TPR",type="l")
+lines(results01[[1]][[2]][,2],results01[[1]][[2]][,1],type="l",lty=2)
+lines(results01[[1]][[3]][,2],results01[[1]][[3]][,1],type="l",lty=3)
+legend(0,0.4,legend=c("c(0.1,0.6)"))
+
+FPR=results02[[1]][[1]][,2]
+TPR=results02[[1]][[1]][,1]
+plot(FPR,TPR,ylim = c(0.2,1),xlim=c(0,1),xlab = "FPR",ylab = "TPR",type="l")
+lines(results02[[1]][[2]][,2],results02[[1]][[2]][,1],type="l",lty=2)
+lines(results02[[1]][[3]][,2],results02[[1]][[3]][,1],type="l",lty=3)
+legend(0,0.4,legend=c("c(0.1,0.8)"))
+
+FPR=results03[[1]][[1]][,2]
+TPR=results03[[1]][[1]][,1]
+plot(FPR,TPR,ylim = c(0.2,1),xlim=c(0,1),xlab = "FPR",ylab = "TPR",type="l")
+lines(results03[[1]][[2]][,2],results03[[1]][[2]][,1],type="l",lty=2)
+lines(results03[[1]][[3]][,2],results03[[1]][[3]][,1],type="l",lty=3)
+legend(0,0.4,legend=c("c(0.3,0.6)"))
+
+FPR=results04[[1]][[1]][,2]
+TPR=results04[[1]][[1]][,1]
+plot(FPR,TPR,ylim = c(0.2,1),xlim=c(0,1),xlab = "FPR",ylab = "TPR",type="l")
+lines(results04[[1]][[2]][,2],results04[[1]][[2]][,1],type="l",lty=2)
+lines(results04[[1]][[3]][,2],results04[[1]][[3]][,1],type="l",lty=3)
+legend(0,0.4,legend=c("(0.3,0.8)"))
+
+title("Comparison of LGLASSO, GLASSO  and NH when data are censored", outer=TRUE, cex=1.5)
+```
+
+
+
+
+
+
+

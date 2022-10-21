@@ -12,7 +12,7 @@
 <meta name="author" content="Jie Zhou" />
 
 
-<title>Procedure for generating Table 1</title>
+<title>Procedure for generating Figures</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -277,7 +277,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Procedure for generating Table 1</h1>
+<h1 class="title toc-ignore">Procedure for generating Figures</h1>
 <h4 class="author">Jie Zhou</h4>
 <h4 class="date">9/21/2022</h4>
 
@@ -328,7 +328,7 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -434,7 +434,6 @@ Unstaged changes:
     Modified:   analysis/figure1.Rmd
     Modified:   analysis/index.Rmd
     Modified:   analysis/network_real_data.Rmd
-    Modified:   analysis/table1.Rmd
     Deleted:    analysis/tau1.rd
     Modified:   code/simulation_functions.R
     Modified:   data/estnetwork1.rd
@@ -450,87 +449,27 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/table1.Rmd</code>) and HTML (<code>docs/table1.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/jiezhou-2/lglasso_data_analysis/blob/dd32d098aea82b9ee532db546678be0b36e08231/analysis/table1.Rmd" target="_blank">dd32d09</a>
-</td>
-<td>
-Jie Zhou
-</td>
-<td>
-2022-09-28
-</td>
-<td>
-create the repo
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/jiezhou-2/lglasso_data_analysis/dd32d098aea82b9ee532db546678be0b36e08231/docs/table1.html" target="_blank">dd32d09</a>
-</td>
-<td>
-Jie Zhou
-</td>
-<td>
-2022-09-28
-</td>
-<td>
-create the repo
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
 </div>
 <div id="source-the-simulation-related-functions" class="section level3">
 <h3>Source the simulation-related functions</h3>
-<pre class="r"><code>library(&quot;lglasso&quot;)
-library(&quot;glasso&quot;)
+<pre class="r"><code>library(&quot;lglasso&quot;)                                                        
 library(&quot;BDgraph&quot;)
 library(&quot;GGMselect&quot;)
+library(&quot;Matrix&quot;)
 source(&quot;./code/simulation_functions.r&quot;)</code></pre>
 </div>
-<div id="code-for-the-case-of-m20n10-coefc00" class="section level3">
-<h3>Code for the case of <code>m=20,n=10, coef=c(0,0)</code></h3>
+<div id="code-for-the-case-of-dampening-rate-uu2.3-0.3" class="section level3">
+<h3>Code for the case of dampening rate <code>uu=(2.3, 0.3)</code></h3>
 <pre class="r"><code>m=20
-n=10
-e=0
-p=80
+n=20
+e=2.302
+uu2=0.3
 Nsim=50
 rho=vector(&quot;list&quot;,5)
 rho[[1]]=seq(0.001,0.3,length=20)
@@ -538,8 +477,53 @@ rho[[2]]=seq(0.001,0.3,length=20)
 rho[[3]]=seq(0.001,0.3,length=20)
 rho[[4]]=seq(0.00001,0.1,length=10)
 rho[[5]]=seq(0.00001,0.1,length=10)
-set.seed(m+n+e*10+p)
-simures=power_compare1(m=m,n=n,p=p,coe=c(2,e,e),l=Nsim,rho=rho,prob=0.01,heter=T)</code></pre>
+set.seed(uu2*10+20+20+2.302)
+simures=power_compare1(m=m,n=n,p=80,coe=c(e,0,0),l=Nsim,rho=rho,prob=0.01,heter=F,community2=T,uu=c(2.3,uu2),zirate=c(0,0))</code></pre>
+</div>
+<div id="plot-for-homo-model-with-two-communities." class="section level3">
+<h3>Plot for homo model with two communities.</h3>
+<pre class="r"><code>load(&quot;./data/homoc2/uu2=0.3.Rd&quot;)
+results01=simures
+load(&quot;./data/homoc2/uu2=1.3.Rd&quot;)
+results02=simures
+load(&quot;./data/homoc2/uu2=2.3.Rd&quot;)
+results03=simures
+load(&quot;./data/homoc2/uu2=3.3.Rd&quot;)
+results04=simures
+par(mfrow=c(2,2),mar=c(4,4,2,2),oma=c(0,0,2,0))
+FPR=results01[[1]][[1]][,2]
+TPR=results01[[1]][[1]][,1]
+plot(FPR,TPR,ylim = c(0.2,1),xlim=c(0,1),xlab = &quot;FPR&quot;,ylab = &quot;TPR&quot;,type=&quot;l&quot;)
+lines(results01[[1]][[2]][,2],results01[[1]][[2]][,1],type=&quot;l&quot;,lty=2)
+lines(results01[[1]][[3]][,2],results01[[1]][[3]][,1],type=&quot;l&quot;,lty=3)
+legend(0,0.4,legend=c(&quot;(2.3,0.3)&quot;))
+
+
+FPR=results02[[1]][[1]][,2]
+TPR=results02[[1]][[1]][,1]
+plot(FPR,TPR,ylim = c(0.2,1),xlim=c(0,1),xlab = &quot;FPR&quot;,ylab = &quot;TPR&quot;,type=&quot;l&quot;)
+lines(results02[[1]][[2]][,2],results02[[1]][[2]][,1],type=&quot;l&quot;,lty=2)
+lines(results02[[1]][[3]][,2],results02[[1]][[3]][,1],type=&quot;l&quot;,lty=3)
+legend(0,0.4,legend=c(&quot;(2.3,1.3)&quot;))
+
+
+FPR=results03[[1]][[1]][,2]
+TPR=results03[[1]][[1]][,1]
+plot(FPR,TPR,ylim = c(0.2,1),xlim=c(0,1),xlab = &quot;FPR&quot;,ylab = &quot;TPR&quot;,type=&quot;l&quot;)
+lines(results03[[1]][[2]][,2],results03[[1]][[2]][,1],type=&quot;l&quot;,lty=2)
+lines(results03[[1]][[3]][,2],results03[[1]][[3]][,1],type=&quot;l&quot;,lty=3)
+legend(0,0.4,legend=c(&quot;(2.3,2.3)&quot;))
+
+FPR=results04[[1]][[1]][,2]
+TPR=results04[[1]][[1]][,1]
+plot(FPR,TPR,ylim = c(0.2,1),xlim=c(0,1),xlab = &quot;FPR&quot;,ylab = &quot;TPR&quot;,type=&quot;l&quot;)
+lines(results04[[1]][[2]][,2],results04[[1]][[2]][,1],type=&quot;l&quot;,lty=2)
+lines(results04[[1]][[3]][,2],results04[[1]][[3]][,1],type=&quot;l&quot;,lty=3)
+legend(0,0.4,legend=c(&quot;(2.3,3.3)&quot;))
+
+
+title(&quot;Comparison of LGLASSO, GLASSO  and NH&quot;, outer=TRUE, cex=1.5)</code></pre>
+<p><img src="figure/figure2.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -565,21 +549,22 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] GGMselect_0.1-12.5 mvtnorm_1.1-3      BDgraph_2.67       glasso_1.11       
+[1] Matrix_1.3-4       GGMselect_0.1-12.5 mvtnorm_1.1-3      BDgraph_2.67      
 [5] lglasso_0.1.0     
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.9       pillar_1.8.0     compiler_4.1.2   bslib_0.4.0     
- [5] later_1.3.0      jquerylib_0.1.4  git2r_0.30.1     workflowr_1.7.0 
- [9] tools_4.1.2      digest_0.6.29    jsonlite_1.8.0   evaluate_0.15   
-[13] lifecycle_1.0.1  tibble_3.1.7     pkgconfig_2.0.3  rlang_1.0.4     
-[17] cli_3.3.0        rstudioapi_0.13  yaml_2.3.5       xfun_0.31       
-[21] fastmap_1.1.0    stringr_1.4.0    knitr_1.39       gtools_3.9.3    
-[25] fs_1.5.2         vctrs_0.4.1      sass_0.4.2       rprojroot_2.0.3 
-[29] glue_1.6.2       R6_2.5.1         fansi_1.0.3      rmarkdown_2.14  
-[33] magrittr_2.0.3   whisker_0.4      lars_1.3         promises_1.2.0.1
-[37] ellipsis_0.3.2   htmltools_0.5.2  httpuv_1.6.5     utf8_1.2.2      
-[41] stringi_1.7.6    cachem_1.0.6    </code></pre>
+ [1] Rcpp_1.0.9       highr_0.9        pillar_1.8.0     compiler_4.1.2  
+ [5] bslib_0.4.0      later_1.3.0      jquerylib_0.1.4  git2r_0.30.1    
+ [9] workflowr_1.7.0  tools_4.1.2      digest_0.6.29    lattice_0.20-45 
+[13] jsonlite_1.8.0   evaluate_0.15    lifecycle_1.0.1  tibble_3.1.7    
+[17] pkgconfig_2.0.3  rlang_1.0.4      cli_3.3.0        rstudioapi_0.13 
+[21] yaml_2.3.5       xfun_0.31        fastmap_1.1.0    stringr_1.4.0   
+[25] knitr_1.39       gtools_3.9.3     fs_1.5.2         vctrs_0.4.1     
+[29] sass_0.4.2       grid_4.1.2       rprojroot_2.0.3  glue_1.6.2      
+[33] R6_2.5.1         fansi_1.0.3      rmarkdown_2.14   glasso_1.11     
+[37] magrittr_2.0.3   lars_1.3         promises_1.2.0.1 ellipsis_0.3.2  
+[41] htmltools_0.5.2  httpuv_1.6.5     utf8_1.2.2       stringi_1.7.6   
+[45] cachem_1.0.6    </code></pre>
 </div>
 </div>
 

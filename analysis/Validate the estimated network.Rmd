@@ -71,10 +71,6 @@ subdistance2=distance2[index,index]
 
 ```{r}
 load("./data/estnetwork1.rd")
-load("./data/estnetwork2.rd")
-load("./data/estnetwork3.rd")
-load("./data/estnetwork4.rd")
-load("./data/estnetwork5.rd")
 ```
 
 
@@ -94,88 +90,5 @@ load("./data/estnetwork5.rd")
   rlglasso=cor(d1_NM,d2_NM)
   dlglasso=cbind(d1_NM,d2_NM)
 ```
-
-
-```{r}
-### glasso
-  N=ifelse(estnetwork2==0,0,1)
-  diag(N)=0
-  g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)  
-  distance1=distances(g2)
-  index=which(distance1==Inf,arr.ind = T)
-  distance1[index]=100
-  d1=distance1[lower.tri(distance1)]
-  d2=subdistance2[lower.tri(subdistance2)]
-  d1_NM=d1[which(d1!=100)]
-  d2_NM=d2[which(d1!=100)]
-  rglasso=cor(d1_NM,d2_NM)
-  dglasso=cbind(d1_NM,d2_NM)
-```
-
-
-```{r}
-### nh
-  N=ifelse(estnetwork3==0,0,1)
-  diag(N)=0
-  g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)  
-  distance1=distances(g2)
-  index=which(distance1==Inf,arr.ind = T)
-  distance1[index]=100
-  d1=distance1[lower.tri(distance1)]
-  d2=subdistance2[lower.tri(subdistance2)]
-  d1_NM=d1[which(d1!=100)]
-  d2_NM=d2[which(d1!=100)]
-  rnh=cor(d1_NM,d2_NM)
-  dnh=cbind(d1_NM,d2_NM)
-```
-
-
-```{r}
-### co1
-  N=ifelse(estnetwork4==0,0,1)
-  diag(N)=0
-  g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)  
-  distance1=distances(g2)
-  index=which(distance1==Inf,arr.ind = T)
-  distance1[index]=100
-  d1=distance1[lower.tri(distance1)]
-  d2=subdistance2[lower.tri(subdistance2)]
-  d1_NM=d1[which(d1!=100)]
-  d2_NM=d2[which(d1!=100)]
-  rco1=cor(d1_NM,d2_NM)
-  dco1=cbind(d1_NM,d2_NM)
-```
-
-
-```{r}
-### la
-  N=ifelse(estnetwork5==0,0,1)
-  diag(N)=0
-  g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)  
-  distance1=distances(g2)
-  index=which(distance1==Inf,arr.ind = T)
-  distance1[index]=100
-  d1=distance1[lower.tri(distance1)]
-  d2=subdistance2[lower.tri(subdistance2)]
-  d1_NM=d1[which(d1!=100)]
-  d2_NM=d2[which(d1!=100)]
-  rla=cor(d1_NM,d2_NM)
-  dla=cbind(d1_NM,d2_NM)
-```
-
-```{r}
-print(c(rlglasso,rglasso,rnh,rco1,rla))
-```
-
-
-
-
-
-
-
-
-
-### 
-
 
 

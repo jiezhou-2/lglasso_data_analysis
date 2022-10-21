@@ -11,7 +11,7 @@
 
 
 
-<title>Home</title>
+<title>Using Longitudinal 16S rRNA Abundance Data to Identify Microbial Interaction Network</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -276,7 +276,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">Using Longitudinal 16S rRNA Abundance Data to Identify Microbial Interaction Network</h1>
 
 </div>
 
@@ -301,7 +301,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-09-29
+<strong>Last updated:</strong> 2022-10-21
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -332,16 +332,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjiezhou2lglassodataanalysistreea3baecda3e980e1fc0077da46625cadf2a1edff3targetblanka3baecda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jiezhou-2/lglasso_data_analysis/tree/a3baecda3e980e1fc0077da46625cadf2a1edff3" target="_blank">a3baecd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjiezhou2lglassodataanalysistreee045a4eb6e73b1c92a506ab51480ed464f4c9461targetblanke045a4ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jiezhou-2/lglasso_data_analysis/tree/e045a4eb6e73b1c92a506ab51480ed464f4c9461" target="_blank">e045a4e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjiezhou2lglassodataanalysistreea3baecda3e980e1fc0077da46625cadf2a1edff3targetblanka3baecda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjiezhou2lglassodataanalysistreee045a4eb6e73b1c92a506ab51480ed464f4c9461targetblanke045a4ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/jiezhou-2/lglasso_data_analysis/tree/a3baecda3e980e1fc0077da46625cadf2a1edff3" target="_blank">a3baecd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/jiezhou-2/lglasso_data_analysis/tree/e045a4eb6e73b1c92a506ab51480ed464f4c9461" target="_blank">e045a4e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -350,14 +350,31 @@ Note that you need to be careful to ensure that all relevant files for the analy
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/.Rhistory
     Ignored:    analysis/networkcommon_he.png
+    Ignored:    data/heterc1/
 
 Untracked files:
-    Untracked:  analysis/network_real_data.Rmd
+    Untracked:  analysis/figure2.Rmd
+    Untracked:  analysis/figure3.Rmd
+    Untracked:  analysis/table2.Rmd
+    Untracked:  analysis/table3.Rmd
+    Untracked:  code/sim_plot.R
+    Untracked:  data/heterc2/
+    Untracked:  data/hetercensored/
+    Untracked:  data/homoc1/
+    Untracked:  data/homoc2/
+    Untracked:  data/homocensored/
 
 Unstaged changes:
+    Modified:   analysis/Validate the estimated network.Rmd
+    Modified:   analysis/figure1.Rmd
     Modified:   analysis/index.Rmd
-    Deleted:    analysis/netwrok_real_data.Rmd
+    Modified:   analysis/network_real_data.Rmd
+    Modified:   analysis/table1.Rmd
+    Deleted:    analysis/tau1.rd
+    Modified:   code/simulation_functions.R
+    Modified:   data/estnetwork1.rd
 
 </code></pre>
 <p>
@@ -396,6 +413,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/jiezhou-2/lglasso_data_analysis/blob/e045a4eb6e73b1c92a506ab51480ed464f4c9461/analysis/index.Rmd" target="_blank">e045a4e</a>
+</td>
+<td>
+Jie Zhou
+</td>
+<td>
+2022-09-29
+</td>
+<td>
+complete version
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/jiezhou-2/lglasso_data_analysis/e045a4eb6e73b1c92a506ab51480ed464f4c9461/docs/index.html" target="_blank">e045a4e</a>
+</td>
+<td>
+Jie Zhou
+</td>
+<td>
+2022-09-29
+</td>
+<td>
+complete version
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -471,30 +522,44 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<div id="supplementary-materials-for-reproducibility" class="section level1">
-<h1>Supplementary Materials for Reproducibility</h1>
-<p>This website demonstrate the specific procedures adopted to reproduce the results in the paper &lt;Identifying Microbial Interaction Networks Based on Irregularly Spaced Longitudinal 16S rRNA sequence data&gt;.</p>
-<div id="simulation" class="section level2">
-<h2>Simulation</h2>
-<div id="data-from-sggm" class="section level3">
-<h3>Data from SGGM</h3>
-<p><a href="figure1.html">Code for Figure 1.</a></p>
-<p><a href="table1.html">Code for Table 1.</a></p>
+<style type="text/css">
+
+body, td {
+   font-size: 16px;
+   font-family: Calibri;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 20px
+}
+</style>
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
+<ul>
+<li><p>This website demonstrate the specific procedures adopted to reproduce the results in the paper <em>Identifying Microbial Interaction Networks Based on Irregularly Spaced Longitudinal 16S rRNA sequence data</em>. If you are only interested in how to use the R package <code>lglasso</code> associated with this paper rather than the results in the paper, you could just check the vignette by click the link, <a href="https://jiezhou-2.github.io/lglasso/articles/Introduction_of_lglasso_package.html">R package lglasso</a>.</p></li>
+<li><p>In the paper, we compared the proposed network identification algorithm <code>lglasso</code> with other conventional algorithms, i.e., <code>glasso</code>, <code>neighborhood method</code>, <code>GGMselect-CO1</code> and <code>GGMselect-LA</code>. It is shown that the proposed <code>lglasso</code> outperform the other methods when the data are longitudinal. In order to carry out the simulation studies, in addition to the functions defined in package <code>lglasso</code>, we also defined some other functions to facilitate the simulation. These functions are then sourced into the simulation scripts.</p></li>
+<li><p>Unfortunately, because the authors have not been authorized to disclose the real data used in the paper, we only demonstrate the procedure used to reproduce the results in simulation studies in the paper.</p></li>
+</ul>
 </div>
-<div id="data-from-general-ggm" class="section level3">
-<h3>Data from general GGM</h3>
-</div>
-</div>
-<div id="real-data" class="section level2">
-<h2>Real data</h2>
-<div id="estimate-the-network" class="section level3">
-<h3>Estimate the network</h3>
-<p><a href="network_real_data.html">Code for Figure 2.</a></p>
-</div>
-<div id="validated-the-estimated-network" class="section level3">
-<h3>Validated the estimated network</h3>
-</div>
-</div>
+<div id="reproduce-the-results" class="section level3">
+<h3>Reproduce the results</h3>
+<ul>
+<li><p>In order to run the script, you need to install the package first, using the following code,</p>
+<ul>
+<li><code>remotes::install_github("jiezhou-2/lglasso",ref = "conditional")</code></li>
+</ul></li>
+<li><p>Note since in each figure, there are four scenarios being investigated which only differ in terms of their parameter settings, so only the code for one of the four scenarios are displayed. You can change the parameter setting to get the results for other settings. The same rule is used for the results in the tables.</p>
+<ul>
+<li><p><a href="figure1.html">Procedure for generating Figure 1.</a></p></li>
+<li><p><a href="figure2.html">Procedure for generating Figure 2.</a></p></li>
+<li><p><a href="figure3.html">Procedure for generating Figure 3.</a></p></li>
+<li><p><a href="table1.html">Procedure for generating Table 1.</a></p></li>
+<li><p><a href="table2.html">Procedure for generating Table 2.</a></p></li>
+<li><p><a href="table3.html">Procedure for generating Table 3.</a></p></li>
+</ul></li>
+</ul>
 </div>
 
 

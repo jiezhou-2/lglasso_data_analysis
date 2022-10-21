@@ -19,16 +19,20 @@ library("lglasso")
 library("glasso")
 library("BDgraph")
 library("GGMselect")
+library("Matrix")
 source("./code/simulation_functions.r")
 ```
 
-### Code for the case of `m=20,n=10, coef=c(0,0)`
+
+
+
+### Code for the case of heterogeneous community `uu=(2.3,0.3)`
+
 
 ```{r,eval=FALSE}
 m=20
 n=10
-e=0
-p=80
+uu2=0.3
 Nsim=50
 rho=vector("list",5)
 rho[[1]]=seq(0.001,0.3,length=20)
@@ -36,8 +40,8 @@ rho[[2]]=seq(0.001,0.3,length=20)
 rho[[3]]=seq(0.001,0.3,length=20)
 rho[[4]]=seq(0.00001,0.1,length=10)
 rho[[5]]=seq(0.00001,0.1,length=10)
-set.seed(m+n+e*10+p)
-simures=power_compare1(m=m,n=n,p=p,coe=c(2,e,e),l=Nsim,rho=rho,prob=0.01,heter=T)
+set.seed(m+n+uu2*20)
+simures=power_compare1(m=m,n=n,p=80,coe=c(2.3,0,0),l=Nsim,rho=rho,prob=0.01,heter=T,community2=T,uu=c(2.3,uu2))
 ```
 
 
