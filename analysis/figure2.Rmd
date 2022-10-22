@@ -1,5 +1,5 @@
 ---
-title: "Procedure for generating Figures"
+title: "Procedure for generating Figure 2"
 author: "Jie Zhou"
 date: "9/21/2022"
 output:  
