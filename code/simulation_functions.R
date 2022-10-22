@@ -286,7 +286,7 @@ power_compare1=function(m,n,p,coe,l,rho,prob,heter,community2=F,uu=c(0,0),zirate
 
   return(list(whol=bb,selec=rr,resul=results))
 }
-Z
+
 
 
 

@@ -24,7 +24,7 @@ source("./code/simulation_functions.r")
 
 
 
-### Code for the case of m=15, n=20 
+### Code for the case of `m=15, n=20` 
 
 ```{r,eval=FALSE}
 m=15
