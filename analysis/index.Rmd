@@ -28,7 +28,7 @@ pre {
 
 ### Introduction
 
-* This website demonstrate the specific procedures to reproduce the 
+* This website  demonstrate the specific procedures to reproduce the 
 results in the paper *Identifying Microbial Interaction Networks Based on Irregularly Spaced Longitudinal 16S rRNA sequence data*.   
 
 * In the paper, we compared the proposed network identification algorithm  `lglasso` with other conventional algorithms, i.e., `glasso`, `neighborhood method`, `GGMselect-CO1` and `GGMselect-LA`. It is shown that the proposed `lglasso` outperform the other methods when the data are  longitudinal. In order to carry out the simulation studies, in addition to the functions defined in  package `lglasso`, we also defined some other functions to facilitate the simulation. These functions are then  sourced into the simulation scripts. 
@@ -44,7 +44,7 @@ results in the paper *Identifying Microbial Interaction Networks Based on Irregu
 
 * Note since in each figure, there are four scenarios being investigated which only differ in terms of their parameter settings, so only the code for one of the four scenarios are displayed. You can change the parameter setting to get the results for other settings. The same rule is used for the results in the  tables. Also since running the code can take hours,if possible, I would suggest to submit  the code to a server instead of on your local computer when runing the code.   
 
-*  All the simulation are implemented based on the R function `power_compare1`, which has the following form ``result= power_compare1(m,n,p,coe,l,rho,prob,heter,community2,zirate) ``
+*  All the simulation are implemented based on the R function `power_compare1`, which has the following form ``result= power_compare1(m,n,p,coe,l,rho,prob,heter,community2,uu,zirate) ``
 where 
 
     + `m` is the number of subjects to be simulated
@@ -56,26 +56,27 @@ where
     + `prob` is the edge density of the network to be generated
     + `heter` is a binary indicator. If `heter=0` then generate the data using homogeneous SGGM; if `heter=1`, then generate the data using heterogeneous SGGM.
     + `community2` is a binary indicator. If `community2=T`, then the data are generated from homogeneous microbial community; if `community2=F`, then the data are generated from heterogeneous microbial community. 
+    + `uu` is a length 2 vector. When `community2=T`, `uu[1]` is the correlation parameter for the first community and `uu[2]` is the correlation parameter for the second community. 
     +  `zirate` is a 2-component vector which controls the zero inflation rate in the simulated data.\par 
     
 * Output  `` result: ``
      
     +  `result[[1]]` is a length 5 list corresponding to the five algorithms.  Each of the five components of `result[[1]]` is a `l * 2` matrix. Each row of this matrix is   a `(TPR, FPR)` pair which corresponds to the tuning parameter sequence. The Figures are plotted based on this results.
     +  `results[[2]]` is a `5*2` matrix corresponding to the  `(TPR, FPR)` pairs of the five networks selected by the five algorithms based on EBIC. 
-    +  `results[[3]]` is a list recording all `(TPR, FPR)` results for each replicate.  
+    +  `results[[3]]` is a list recording all `(TPR, FPR)` results of each replicate, each tuning parameter and each algorithms.    
 
 
-  + [Procedure for generating Figure 1.](figure1.html)
+* [Procedure for generating Figure 1.](figure1.html)
 
-  + [Procedure for generating Figure 2.](figure2.html)
+* [Procedure for generating Figure 2.](figure2.html)
 
-  + [Procedure for generating Figure 3.](figure3.html)
+* [Procedure for generating Figure 3.](figure3.html)
 
-  + [Procedure for generating Table 1.](table1.html)
+* [Procedure for generating Table 1.](table1.html)
 
-  + [Procedure for generating Table 2.](table2.html)
+* [Procedure for generating Table 2.](table2.html)
 
-  + [Procedure for generating Table 3.](table3.html)
+* [Procedure for generating Table 3.](table3.html)
 
 
 
