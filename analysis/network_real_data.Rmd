@@ -18,11 +18,13 @@ library("GGMselect")
 
 ## Read into the data
 ```{r}
-data=read.csv(file = "./data/ddata.csv")[,-1]
+#data=read.csv(file = "./data/ddata.csv")[,-1]
+data=read.csv(file = "C:/Users/Jie Zhou/Desktop/lglassoNew/lglasso_data_analysis/data/ddata.csv")[,-1]
 ```
 ## source the code 
 ```{r}
-source(file="./code/bicfunction.R")
+#source(file="./code/bicfunction.R")
+source(file="C:/Users/Jie Zhou/Desktop/lglassoNew/lglasso_data_analysis/code/bicfunction.R")
 ```
 
 
@@ -36,18 +38,29 @@ source(file="./code/bicfunction.R")
 
 ```{r}
 bic1=c()
-rho=seq(15,23,length=50)
+rho1=seq(7,13,length=40)
+rho2=seq(7,14.3,length=40)
+rho3=seq(0.2,2.5,length=40)
+
 ```
 
 
 ```{r,message=FALSE,warning=FALSE}
-r=0.036
 bic1=c()
-T=log(ncol(data)-2)/(2*log(1/r-1))
-network1=vector("list",length = length(rho))
-for (j in 1:length(rho)){
-result1=lglasso(data = data, rho = rho[j],heter=F)
+#T=log(ncol(data)-2)/(2*log(1/r-1))
+T=1
+s=cov(data[,-c(1,2)])
+network1=vector("list",length = length(rho1))
+network2=vector("list",length = length(rho1))
+network3=vector("list",length = length(rho1))
+for (j in 1:length(rho1)){
+  print(j)
+result1=lglasso(data = data, rho = rho1[j],heter=F)
 network1[[j]]=result1$omega
+result2=glasso(s=s,rho=rho2[j])
+network2[[j]]=result2$wi
+result3=addition(data=data,lambda=rho3[j])
+network3[[j]]=result3
 bb1=-2*result1$ll +0.5*length(which(result1$omega!=0))*log(nrow(data))+0.5* length(which(result1$omega!=0))*log(ncol(data)-2)/T
 bic1=c(bic1,bb1)
 }
@@ -67,7 +80,10 @@ bic1=c(bic1,bb1)
 index1=which.min(bic1)
 estnetwork1=network1[[index1]]
 plot(bic1)
-save(estnetwork1,file="./data/estnetwork1.rd")
+save(network1,file="C:/Users/Jie Zhou/Desktop/lglassoNew/lglasso_data_analysis/data/real/network1.rd")
+save(network2,file="C:/Users/Jie Zhou/Desktop/lglassoNew/lglasso_data_analysis/data/real/network2.rd")
+save(network3,file="C:/Users/Jie Zhou/Desktop/lglassoNew/lglasso_data_analysis/data/real/network3.rd")
+save(estnetwork1,file="C:/Users/Jie Zhou/Desktop/lglassoNew/lglasso_data_analysis/data/real/estnetwork1.rd")
 ```
 </details>
 
@@ -91,15 +107,21 @@ V(g2)$name=family
 node_list=get.data.frame(g2,what="vertices")
 edge_list=get.data.frame(g2,what="edges")
 group=rep(1,nrow(edge_list))
-edge_list=cbind(edge_list,group)
+half=estnetwork1[upper.tri(estnetwork1,diag = F)]
+group=half[which(half!=0)]
+groupp=c(group,group)
+edge_list=cbind(edge_list,groupp)
+
+aa=data.frame(from=family,to=family,groupp=0.001)
+edge_list=rbind(edge_list,aa)
 all_nodes <- sort(node_list$name)
 plot_data <- edge_list %>% mutate(
   to = factor(to, levels = all_nodes),
   from = factor(from, levels = all_nodes))
 #png(filename = paste("networkcommon_he", ".png", sep = ""))[1,]
-ggplot(plot_data, aes(x = from, y = to, fill = group))  +
+ggplot(plot_data, aes(x = from, y = to, fill = groupp))  +
   geom_raster() +
-  theme_bw(base_size = 11, base_family = "serif", base_line_size = 1) +
+  theme_bw(base_size = 8, base_family = "serif", base_line_size = 0.5) +
   scale_x_discrete(labels=family1) +
   scale_y_discrete(labels=family1) +
   labs(x="Taxon",y="Taxon")+

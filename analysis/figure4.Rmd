@@ -1,0 +1,104 @@
+---
+title: "Procedure for generating Figure 4"
+author: "Jie Zhou"
+date: "9/21/2022"
+output:  
+  workflowr::wflow_html:
+    toc: false
+---
+
+
+
+```{r,message=FALSE,warning=FALSE}
+library("lglasso")
+library("glasso")
+library("ggplot2")
+library("igraph")
+library("dplyr")
+library("GGMselect")
+```
+
+## Read into the data. The data have the log-ratio transformed relative abundance.
+```{r}
+data=read.csv(file = "./data/real/ddata.csv")[,-1]
+```
+
+
+
+## Estimate networks 
+
+### Compute networks for a sequence of tuning parameters
+
+
+
+
+```{r,message=FALSE,warning=FALSE,eval=FALSE}
+bic1=c()
+rho1=seq(7,13,length=40)
+s=cov(data[,-c(1,2)])
+network1=vector("list",length = length(rho1))
+for (j in 1:length(rho1)){
+  print(j)
+result1=lglasso(data = data, rho = rho1[j],heter=F)
+network1[[j]]=result1$omega
+bb1=-2*result1$ll +0.5*length(which(result1$omega!=0))*log(nrow(data))+0.5* length(which(result1$omega!=0))*log(ncol(data)-2)/T
+bic1=c(bic1,bb1)
+}
+index1=which.min(bic1)
+estnetwork1=network1[[index1]]
+```
+
+
+### Select the networks based on EBIC
+
+
+```{r,echo=FALSE}
+load("./data/real/network1.Rd")
+load("./data/real/estnetwork1.Rd")
+```
+
+
+```{r}
+estnetwork1=10*(estnetwork1+t(estnetwork1))
+diag(estnetwork1)=0
+family=colnames(data)[-c(1,2)]
+rownames(estnetwork1)=family
+colnames(estnetwork1)=family
+family1=family
+family2=family
+l=length(family)
+for (i in 1:l) {
+  if (i%%2==0) {family1[i]=""}
+  if (i%%2==1) {family2[i]=""}
+}
+N=ifelse(estnetwork1==0,0,1)
+g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "directed",diag = F)
+V(g2)$degree = degree(g2)
+V(g2)$name=family
+node_list=get.data.frame(g2,what="vertices")
+edge_list=get.data.frame(g2,what="edges")
+
+plot_data=data.frame()
+for (i in rownames(estnetwork1)) {
+  for (j in colnames(estnetwork1)) {
+    a=data.frame(from=i,to=j,coefficient=abs(estnetwork1[i,j]))
+    plot_data=rbind(plot_data,a)
+  }
+}
+
+ggplot(plot_data, aes(x = from, y = to, fill = coefficient))  +
+  geom_tile() +
+  theme_bw(base_size = 8, base_family = "serif", base_line_size = 1) +
+  scale_x_discrete(labels=family2) +
+  scale_y_discrete(labels=family1) +
+  labs(x="Taxon",y="Taxon")+
+  theme(
+    # Rotate the x-axis labels so they are legible
+    axis.text.x = element_text(angle = 270, hjust = 0),
+    # Force the plot into a square aspect ratio
+    aspect.ratio = 1,
+    # Hide the legend (optional)
+    #legend.position = "none"
+    )
+```
+

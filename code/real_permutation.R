@@ -13,37 +13,40 @@ theta=function(v1,v2){
 
 
 ##sequence simulation
+set.seed(10)
 d2=subdistance2[lower.tri(subdistance2)]
-L=matrix(nrow = 5001,ncol = 40)
-for (i in 1:length(pathlist)) {
+L=matrix(nrow = 5001,ncol = length(network1))
+for (i in 1:length(network1)) {
   print(i)
-  g=graph_from_adjacency_matrix(adjmatrix = t(pathlist[[i]]), mode = "undirected",diag = F)
+  N=ifelse(network1[[i]]==0,0,1)
+  diag(N)=0
+  g=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)
   distance1=distances(g)
   d1=distance1[lower.tri(distance1)]
   d1_NM=d1[which(d1!=Inf)]
   d2_NM=d2[which(d1!=Inf)]
-  rr=theta(d1_NM,d2_NM)
+  rr=cor(d1_NM,d2_NM)
   for (j in 1:5000) {
   g2=permute.vertices(g,sample(vcount(g)))
   distance1=distances(g2)
   d1=distance1[lower.tri(distance1)]
   d1_NM=d1[which(d1!=Inf)]
   d2_NM=d2[which(d1!=Inf)]
-  rr=c(rr,theta(d1_NM,d2_NM))
+  rr=c(rr,cor(d1_NM,d2_NM))
   }
   L[,i]=rr
 }
 ##plot
-boxplot(L,ylab="Studentized Correlation", xlab="Model Index",ylim=c(-17,17))
-lines(L[1,])
-
+boxplot(L,ylab="Correlation", xlab="Model index",ylim=c(-0.6,1))
+lines(L[1,],lty=1)
+legend(1,1,legend = c("LGLASSO"),lty = c(1))
 boxplot(L[-1,],ylab="Studentized Correlation", xlab="Model Index")
 
 
 ##point permutation
 N=pathlist[[43]]
 diag(N)=0
-g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)  
+g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)
 distance1=distances(g2)
 index=which(distance1==Inf,arr.ind = T)
 distance1[index]=100
@@ -69,7 +72,7 @@ for (i in 1:per) {
   d2_NM=d2[which(d1!=100)]
   pcor=c(pcor,cor(d1_NM,d2_NM))
   pcor1=c(pcor1,theta(d1_NM,d2_NM))
-  
+
 }
 hist(pcor,breaks = 20,xlab = "Correlation",main = "", xlim = c(-0.3,0.3))
 abline(v= 0.2284483,lty=3,col=2)
@@ -104,8 +107,8 @@ fc <- function(d, i){
     #geom_density(alpha=0.2,fill="#E7B800")+
     geom_vline(aes(xintercept=mean(x)),linetype="dashed",size=0.6,colour="red")+
     labs(x="Correlation",y="Density")
-  
-  
+
+
   mean(bootcor$t)
 sd(bootcor$t)
 
@@ -126,7 +129,7 @@ sd(bootcor$t)
 # }
 # hist(pcor,breaks=200, xlab = "Correlation for permuted data",
 #      xlim = c(-0.07,0.15),main ="")
-# 
+#
 # abline(v=cor(d1,d2),lty=3,col=2)
 # text(0.12,0.1,"   observed correlation")
 
@@ -165,7 +168,7 @@ test5=g(network = treegraph,community = commu5)
 test6=g(network = treegraph,community = commu6)
 test7=g(network = treegraph,community = commu7)
 test8=g(network = treegraph,community = commu8)
-# 
+#
 # graphlanBigTree=data.frame(matrix(nrow = nrow(taxa),ncol = 1))
 # for (i in 1:nrow(taxa)){
 #   index=length(which(!is.na(taxa[i,])))
@@ -175,7 +178,7 @@ test8=g(network = treegraph,community = commu8)
 #       a=paste(a,taxa[i,j],sep = ".")
 #     }
 #   }
-#   
+#
 #   graphlanBigTree[i,]=a
 # }
 # write.csv(graphlanBigTree,file="graphlanBigTree.csv")

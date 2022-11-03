@@ -52,6 +52,8 @@ simures=power_compare1(m=20,n=20,p=80,coe=c(2.3,0,0),l=Nsim,rho=rho,prob=0.01,he
 
 
 ```{r,message=FALSE,warning=FALSE,results='hide'}
+load("./data/real/network1.Rd")
+load("./data/real/estnetwork1.Rd")
 load("./data/homocensored/uu1=0.1_uu2=0.6.Rd")
 results01=simures
 load("./data/homocensored/uu1=0.1_uu2=0.8.Rd")

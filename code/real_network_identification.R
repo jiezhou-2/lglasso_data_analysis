@@ -1,4 +1,4 @@
-data=read.csv(file = "ddata.csv")[,-1]
+data=read.csv(file = "./data/ddata.csv")[,-1]
 alpha0=0.1
 tau0=10
 p=ncol(data)-2
@@ -64,7 +64,7 @@ family=colnames(data)[-c(1,2)]
 family1=family
 l=length(family)
 for (i in 1:l) {
-  if (i%%2==0) {family1[i]=""} 
+  if (i%%2==0) {family1[i]=""}
 }
 N=ifelse(a$omega==0,0,1)
 N=pathlist[[23]]
@@ -106,7 +106,7 @@ N=as.matrix(read.csv(file = "adjacency_matrix.csv")[,-1])
 rownames(N)=family
 colnames(family)
 graphHeter=graph_from_adjacency_matrix(N,mode = "undirected")
-#amatrix=as_adjacency_matrix(graphHeter) 
+#amatrix=as_adjacency_matrix(graphHeter)
 community=cluster_louvain(graph = graphHeter)
 member=communities(community)
 commu1=family[which(community$membership==6)]
@@ -137,7 +137,7 @@ for (i in 1:length(commu)) {
 write.csv(annote1,file = "annot_1.csv")
 
 
-a_g=glasso::glasso(s=cov(data[,-c(1,2)]),rho = 10)$wi 
+a_g=glasso::glasso(s=cov(data[,-c(1,2)]),rho = 10)$wi
 family=colnames(data)[-c(1,2)]
 N=ifelse(a_g==0,0,1)
 g2=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "directed",diag = F)

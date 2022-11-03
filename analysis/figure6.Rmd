@@ -1,0 +1,73 @@
+---
+title: "Procedure for generating Figure 6"
+author: "Jie Zhou"
+date: "9/21/2022"
+output:  
+  workflowr::wflow_html:
+    toc: false
+---
+
+
+
+```{r,message=FALSE,warning=FALSE}
+library("lglasso")
+library("glasso")
+library("ggplot2")
+library("igraph")
+library("dplyr")
+library("GGMselect")
+```
+
+
+
+
+
+
+### read into the sequence of networks generated on [7,13]. 
+
+```{r}
+set.seed(10)
+load("./data/real/network1.Rd")
+```
+
+#### read into the distance matrix for phylogenetic tree
+
+```{r}
+load("./data/real/distance2.Rd")
+```
+
+### permuatation test
+
+```{r,message=FALSE,warning=FALSE}
+d2=distance2[lower.tri(distance2)]
+L=matrix(nrow = 5001,ncol = length(network1))
+for (i in 1:length(network1)) {
+  print(i)
+  N=ifelse(network1[[i]]==0,0,1)
+  diag(N)=0
+  g=graph_from_adjacency_matrix(adjmatrix = t(N), mode = "undirected",diag = F)
+  distance1=distances(g)
+  d1=distance1[lower.tri(distance1)]
+  d1_NM=d1[which(d1!=Inf)]
+  d2_NM=d2[which(d1!=Inf)]
+  rr=cor(d1_NM,d2_NM)
+  for (j in 1:5000) {
+  g2=permute.vertices(g,sample(vcount(g)))
+  distance1=distances(g2)
+  d1=distance1[lower.tri(distance1)]
+  d1_NM=d1[which(d1!=Inf)]
+  d2_NM=d2[which(d1!=Inf)]
+  rr=c(rr,cor(d1_NM,d2_NM))
+  }
+  L[,i]=rr
+}
+```
+
+### Draw the boxplots 
+```{r}
+boxplot(L,ylab="Correlation", xlab="Model index",ylim=c(-0.6,1))
+lines(L[1,],lty=1)
+legend(1,1,legend = c("LGLASSO"),lty = c(1))
+```
+
+

@@ -29,14 +29,14 @@ pre {
 ### Introduction
 
 * This website  demonstrate the specific procedures to reproduce the 
-results in the paper *Identifying Microbial Interaction Networks Based on Irregularly Spaced Longitudinal 16S rRNA sequence data*.   
+results in the paper *Identifying Microbial Interaction Networks Based on Irregularly Spaced Longitudinal 16S rRNA sequence data*, through which we also show how to use the related R package `lgalsso`.     
 
 * In the paper, we compared the proposed network identification algorithm  `lglasso` with other conventional algorithms, i.e., `glasso`, `neighborhood method`, `GGMselect-CO1` and `GGMselect-LA`. It is shown that the proposed `lglasso` outperform the other methods when the data are  longitudinal. In order to carry out the simulation studies, in addition to the functions defined in  package `lglasso`, we also defined some other functions to facilitate the simulation. These functions are then  sourced into the simulation scripts. 
 
-* Unfortunately, because the authors have not been authorized to disclose the real data used in the paper, we only demonstrate the procedure used to reproduce the simulation results in the paper.  
+* In addition to the simulation studies, we also provide the data and code for reproduce the analysis results for the real data set. 
 
 
-### Reproduce the results 
+### Reproduce the simulation results 
 * In order to run the script, you need to install the package first,  using the following code,
 
     ``remotes::install_github("jiezhou-2/lglasso",ref = "conditional")``
@@ -78,8 +78,11 @@ where
 
 * [Procedure for generating Table 3.](table3.html)
 
+### Reproduce the real data results 
 
 
+* [Procedure for generating Figure 4.](figure4.html)
 
+* [Procedure for generating Figure 6.](figure6.html)
 
-
+* [Procedure for generating Figure 7.](figure7.html)

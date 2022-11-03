@@ -20,10 +20,10 @@ library(igraph)
 
 ```{r}
 ##smalltree contains the evolution information
-data=read.csv(file = "./data/ddata.csv")[,-1]
+data=read.csv(file = "./data/real/ddata.csv")[,-1]
 family=colnames(data)[-c(1,2)]
 family[2]="Escherichia.Shigella"
-taxa=read.csv(file="./data/taxa.csv",header = T)[,-1]
+taxa=read.csv(file="./data/real/taxa.csv",header = T)[,-1]
 taxa[which(taxa=="Escherichia/Shigella",arr.ind = T)]="Escherichia.Shigella"
 target=family#here data is generated from the file realdata.R
 smalltree=data.frame()
@@ -65,12 +65,14 @@ for (i in 1:length(family)) {
 }
 
 subdistance2=distance2[index,index]
+distance2=subdistance2
+save(distance2,file = "./data/real/distance2.Rd")
 ```
 
 #### compute the distance matrix in the estimated network
 
 ```{r}
-load("./data/estnetwork1.rd")
+load("/data/real/estnetwork1.rd")
 ```
 
 

@@ -1,4 +1,4 @@
-data=read.csv(file = "final.csv", header = T)[,-1]
+data1=read.csv(file = "./data/final.csv", header = T)[,-1]
 subject=data[,1]
 age=data[,2]
 rabundance=data[,3:ncol(data)]

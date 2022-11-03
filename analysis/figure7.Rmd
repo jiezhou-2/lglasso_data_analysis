@@ -1,17 +1,69 @@
-##compare the correlation of distance between precision network and phylogenetic network
-distance2=distances(treegraph)
-index=c()
-for (i in 1:length(family)) {
-  index=c(index,which(rownames(distance2)==family[i]))
+---
+title: "Procedure for generating Figure 7"
+author: "Jie Zhou"
+date: "9/21/2022"
+output:  
+  workflowr::wflow_html:
+    toc: false
+---
+
+
+
+```{r,message=FALSE,warning=FALSE}
+library("lglasso")
+library("glasso")
+library("ggplot2")
+library("igraph")
+library("dplyr")
+library("GGMselect")
+```
+
+## Generate the solution path for lglasso, glasso and nh methods.
+```{r,echo=FALSE}
+load("./data/real/network1.rd")
+load("./data/real/network2.rd")
+load("./data/real/network3.rd")
+load("./data/real/distance2.Rd")
+subdistance2=distance2
+```
+
+
+
+
+
+```{r,eval=FALSE}
+rho1=seq(7,13,length=40)
+rho2=seq(7,14.3,length=40)
+rho3=seq(0.2,2.5,length=40)
+
+```
+
+
+```{r,message=FALSE,warning=FALSE,eval=FALSE}
+bic1=c()
+s=cov(data[,-c(1,2)])
+network1=vector("list",length = length(rho1))
+network2=vector("list",length = length(rho1))
+network3=vector("list",length = length(rho1))
+for (j in 1:length(rho1)){
+  print(j)
+result1=lglasso(data = data, rho = rho1[j],heter=F)
+network1[[j]]=result1$omega
+result2=glasso(s=s,rho=rho2[j])
+network2[[j]]=result2$wi
+result3=addition(data=data,lambda=rho3[j])
+network3[[j]]=result3
+bb1=-2*result1$ll +0.5*length(which(result1$omega!=0))*log(nrow(data))+0.5* length(which(result1$omega!=0))*log(ncol(data)-2)/T
+bic1=c(bic1,bb1)
 }
+index1=which.min(bic1)
+estnetwork1=network1[[index1]]
+```
 
-subdistance2=distance2[index,index]
-###
-load("C:/Users/Jie Zhou/Desktop/lglassoNew/lglasso_data_analysis/data/network1.rd")
-load("C:/Users/Jie Zhou/Desktop/lglassoNew/lglasso_data_analysis/data/network2.rd")
 
-load("C:/Users/Jie Zhou/Desktop/lglassoNew/lglasso_data_analysis/data/network3.rd")
+### Compute correlations of the networks on these solution path with respect to the phylogenetic tree
 
+```{r}
 rrr=matrix(nrow=3,ncol = length(network1))
 yyy=matrix(nrow=3,ncol = length(network1))
 pathlist=network1
@@ -65,10 +117,6 @@ for (i in 1:length(pathlist)) {
   d4_NM=d4[which(d3!=100)]
   rrr[3,i]=cor(d3_NM,d4_NM)
 
-
-  print(length(d1_NM))
-  print(length(d2_NM))
-  print(length(d3_NM))
 }
 lgl=cbind(x=yyy[1,],y=rrr[1,])
 lgl=lgl[order(lgl[,1]),]
@@ -81,5 +129,6 @@ plot(lgl[,1],lgl[,2],type="l",lty=1, ylim=c(0,0.55),xlim = c(20,1400),
 lines(gl[,1],gl[,2],lty=2)
 lines(nh[,1],nh[,2],lty=3)
 legend(900,0.55,legend = c("LGLASSO","GLASSO","NH"),lty=c(1,2,3))
+```
 
 
