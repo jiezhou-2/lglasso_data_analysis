@@ -19,7 +19,7 @@ library("GGMselect")
 ```
 
 ## Read into the data. The data have the log-ratio transformed relative abundance.
-```{r}
+```{r,eval=FALSE}
 data=read.csv(file = "./data/real/ddata.csv")[,-1]
 ```
 
@@ -89,6 +89,9 @@ for (i in rownames(estnetwork1)) {
 ggplot(plot_data, aes(x = from, y = to, fill = coefficient))  +
   geom_tile() +
   theme_bw(base_size = 8, base_family = "serif", base_line_size = 1) +
+  scale_fill_gradient(low="white", high="blue") +
+  # scale_fill_distiller(palette = "RdPu") +
+  #scale_fill_viridis_c() +
   scale_x_discrete(labels=family2) +
   scale_y_discrete(labels=family1) +
   labs(x="Taxon",y="Taxon")+

@@ -18,8 +18,7 @@ library("GGMselect")
 
 ## Read into the data
 ```{r}
-#data=read.csv(file = "./data/ddata.csv")[,-1]
-data=read.csv(file = "C:/Users/Jie Zhou/Desktop/lglassoNew/lglasso_data_analysis/data/ddata.csv")[,-1]
+data=read.csv(file = "C:/Users/Jie Zhou/Desktop/lglassoNew/lglasso_data_analysis/data/real/ddata.csv")[,-1]
 ```
 ## source the code 
 ```{r}
@@ -47,8 +46,7 @@ rho3=seq(0.2,2.5,length=40)
 
 ```{r,message=FALSE,warning=FALSE}
 bic1=c()
-#T=log(ncol(data)-2)/(2*log(1/r-1))
-T=1
+Te=1
 s=cov(data[,-c(1,2)])
 network1=vector("list",length = length(rho1))
 network2=vector("list",length = length(rho1))
@@ -61,7 +59,7 @@ result2=glasso(s=s,rho=rho2[j])
 network2[[j]]=result2$wi
 result3=addition(data=data,lambda=rho3[j])
 network3[[j]]=result3
-bb1=-2*result1$ll +0.5*length(which(result1$omega!=0))*log(nrow(data))+0.5* length(which(result1$omega!=0))*log(ncol(data)-2)/T
+bb1=-2*result1$ll +0.5*length(which(result1$omega!=0))*log(nrow(data))+0.5* length(which(result1$omega!=0))*log(ncol(data)-2)/Te
 bic1=c(bic1,bb1)
 }
 ```

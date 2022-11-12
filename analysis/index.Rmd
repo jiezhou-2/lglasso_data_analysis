@@ -33,7 +33,7 @@ results in the paper *Identifying Microbial Interaction Networks Based on Irregu
 
 * In the paper, we compared the proposed network identification algorithm  `lglasso` with other conventional algorithms, i.e., `glasso`, `neighborhood method`, `GGMselect-CO1` and `GGMselect-LA`. It is shown that the proposed `lglasso` outperform the other methods when the data are  longitudinal. In order to carry out the simulation studies, in addition to the functions defined in  package `lglasso`, we also defined some other functions to facilitate the simulation. These functions are then  sourced into the simulation scripts. 
 
-* In addition to the simulation studies, we also provide the data and code for reproduce the analysis results for the real data set. 
+
 
 
 ### Reproduce the simulation results 
@@ -78,11 +78,11 @@ where
 
 * [Procedure for generating Table 3.](table3.html)
 
-### Reproduce the real data results 
+### Reproduce the real data results. 
+
+Without further authorization, we  can not make the code publicly available. If you have interest in this cystic fibrosis data and wish to get access to it, you need to contact the corresponding author at 
+[anne.g.hoen@dartmouth.edu](mailto:anne.g.hoen@dartmouth.edu). Sorry for the inconvenience. 
+ 
 
 
-* [Procedure for generating Figure 4.](figure4.html)
 
-* [Procedure for generating Figure 6.](figure6.html)
-
-* [Procedure for generating Figure 7.](figure7.html)
